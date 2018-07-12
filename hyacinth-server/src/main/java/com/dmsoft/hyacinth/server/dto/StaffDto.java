@@ -13,9 +13,11 @@ public class StaffDto extends AbstractValueObject {
     private Long id;
     private String code;
     private String name;
-    private String idCard;
+    private String position;
+    private String department;
     private String phone;
     private String email;
+    private String emdate;
 
     public Long getId() {
         return id;
@@ -33,6 +35,30 @@ public class StaffDto extends AbstractValueObject {
         this.code = code;
     }
 
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmdate() {
+        return emdate;
+    }
+
+    public void setEmdate(String emdate) {
+        this.emdate = emdate;
+    }
+
     public String getName() {
         return name;
     }
@@ -40,15 +66,6 @@ public class StaffDto extends AbstractValueObject {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
     public String getPhone() {
         return phone;
     }

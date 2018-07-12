@@ -17,9 +17,11 @@ public class Staff extends BaseEntity {
 
     private String code;
     private String name;
-    private String idCard;
+    private String position;
+    private String department;
     private String phone;
     private String email;
+    private String emdate;
 
     public String getCode() {
         return code;
@@ -36,15 +38,6 @@ public class Staff extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getIdCard() {
-        return idCard;
-    }
-
-    public void setIdCard(String idCard) {
-        this.idCard = idCard;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -59,5 +52,29 @@ public class Staff extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getEmdate() {
+        return emdate;
+    }
+
+    public void setEmdate(String emdate) {
+        this.emdate = emdate;
     }
 }

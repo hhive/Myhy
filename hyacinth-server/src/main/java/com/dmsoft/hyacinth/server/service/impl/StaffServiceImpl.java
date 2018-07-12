@@ -28,7 +28,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<StaffDto> findAll() {
-        Iterable<Staff> entityList = staffDao.findAll();
+        Iterable<Staff> entityList = staffDao.
+                findAll();
+
         List<StaffDto> list = Lists.newArrayList();
 
         entityList.forEach(entity -> {
@@ -43,7 +45,6 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public StaffDto findById(Long id) {
         Staff entity = staffDao.findById(id);
-
         StaffDto dto = new StaffDto();
         BeanUtils.copyProperties(entity, dto);
 
@@ -58,5 +59,14 @@ public class StaffServiceImpl implements StaffService {
         BeanUtils.copyProperties(entity, dto);
 
         return dto;
+    }
+    @Override
+    public void insert(long id,String code,String name,String position,String department,String phone,String email,String emdate){
+        staffDao.insert(id, code, name, position, department, phone, email, emdate);
+    }
+
+    @Override
+    public void deltetall() {
+        staffDao.deleteAll();
     }
 }
