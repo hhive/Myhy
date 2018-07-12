@@ -7,6 +7,7 @@
 package com.dmsoft.hyacinth.server.service;
 
 import com.dmsoft.hyacinth.server.dto.UserDto;
+import com.dmsoft.hyacinth.server.entity.User;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public interface UserService {
      * @param password password of user
      * @return if legal return corresponding userDto, else return null
      */
-    UserDto validateUser(String userName, String password);
+    User validateUser(String userName, String password);
 
     /**
      * Change password for user.

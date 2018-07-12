@@ -1,4 +1,4 @@
-/*
+ /*
  *
  *  * Copyright (c) 2018. For DMSoft Group.
  *
@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import javax.swing.JOptionPane;
 
 import java.util.List;
 
@@ -42,12 +43,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto validateUser(String userName, String password) {
-        return null;
+    public User validateUser(String userName, String password) {
+        User user = userDao.findByLoginNameAndPassword(userName, password);
+        if (user != null){
+            return user;
+        }
+        else{
+            return null;
+        }
     }
 
     @Override
     public void changePassword(String userName, String oldPwd, String newPwd) {
-
+        User entity = userDao.findByLoginName(userName);
+        if (entity.getPassword() == oldPwd) {
+            entity.setPassword(newPwd);
+        }else{
+            JOptionPane.showMessageDialog(null, "原密码错误，请重新输入", "alert", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }
+/* public StaffDto findByCode(String code) {
+        Staff entity = staffDao.findByCode(code);
+
+        StaffDto dto = new StaffDto();
+        BeanUtils.copyProperties(entity, dto);
+
+        return dto;
+    }*/
