@@ -1,10 +1,8 @@
-/*
+package com.dmsoft.hyacinth.web;/*
  *
  *  * Copyright (c) 2018. For DMSoft Group.
  *
  */
-
-package com.dmsoft.hyacinth.web;
 
 import javafx.application.Application;
 import org.slf4j.Logger;

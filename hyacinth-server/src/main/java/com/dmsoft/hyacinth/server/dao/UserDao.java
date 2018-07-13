@@ -43,6 +43,7 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
      * @param password  password
      * @return a user
      */
+    @Query(" from User where loginName = ?1 and password =?2")
     User findByLoginNameAndPassword(String loginName, String password);
 
     @Modifying
