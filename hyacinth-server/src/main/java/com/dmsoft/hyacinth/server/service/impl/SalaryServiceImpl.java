@@ -48,6 +48,11 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
+    public void findall() {
+        salaryDao.findall();
+    }
+
+    @Override
     @Transactional
     public void save(SalaryDto salaryDto) {
 

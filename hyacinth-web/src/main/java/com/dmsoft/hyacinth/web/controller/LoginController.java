@@ -59,5 +59,10 @@ public class LoginController {
         System.out.println(map.get("name"));
         return  map;
     }
+    @RequestMapping(value = "/logout")
+    public String logout() {
+        return "logout";
+
+    }
     }
 

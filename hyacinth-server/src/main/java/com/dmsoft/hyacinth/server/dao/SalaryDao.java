@@ -17,6 +17,10 @@ public interface SalaryDao extends PagingAndSortingRepository<Salary, Long>, Jpa
     void deleteall();
     @Modifying
     @Transactional
+    @Query(value = "select * from t_salary",nativeQuery=true)
+    void findall();
+    @Modifying
+    @Transactional
     @Query(value = "insert into t_salary values (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18,?19,?20" +
             ",?21,?22,?23,?24,?25,?26,?27,?28,?29,?30)",nativeQuery=true)
     void insert(String va1,String va2,float va3,float va4,float va5,float va6,float va7,float va8,float va9,float va10

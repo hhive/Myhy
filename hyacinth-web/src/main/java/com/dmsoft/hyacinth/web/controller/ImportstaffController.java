@@ -5,9 +5,14 @@ import com.dmsoft.hyacinth.server.dto.StaffDto;
 import com.dmsoft.hyacinth.server.entity.Salary;
 import com.dmsoft.hyacinth.server.service.SalaryService;
 import com.dmsoft.hyacinth.server.service.StaffService;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.*;
 import java.sql.SQLOutput;
@@ -22,17 +27,30 @@ public class ImportstaffController {
     @Autowired
     private SalaryService salaryService;
     private SalaryDto salary=new SalaryDto();
-    @RequestMapping(value="/staff")
-    public String importstaff(){
+    @RequestMapping(value="/staff",method = RequestMethod.POST)
+    public String importstaff(@RequestParam("upfile") MultipartFile multfile){
         BufferedReader bReader=null;
         try {
-            File file = new File("C:\\Users\\soft\\Desktop\\员工信息模板.csv");
+            File file = null;
+            try {
+                file=File.createTempFile("tmp", null);
+                multfile.transferTo(file);
+                file.deleteOnExit();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            //CommonsMultipartFile cf = (CommonsMultipartFile)multfile;
+            //这个myfile是MultipartFile的
+           // DiskFileItem fi = (DiskFileItem) cf.getFileItem();
+          //  File file = fi.getStoreLocation();
+           // File file = new File("C:\\Users\\soft\\Desktop\\员工信息模板.csv");
             bReader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
         }catch (FileNotFoundException e){e.printStackTrace();}
         catch (IOException r){}
         String line = "";
         try {
-            System.out.print(bReader.readLine());
+            bReader.readLine();
             staffService.deltetall();
             while ((line = bReader.readLine()) != "") {
                 System.out.print(line);
@@ -46,20 +64,28 @@ public class ImportstaffController {
             return "views/staff/staffs";
         }
     }
-    @RequestMapping(value = "salary")
-    public String importsalary(){
+    @RequestMapping(value = "salary",method = RequestMethod.POST)
+    public String importsalary(@RequestParam("upfile2") MultipartFile multfile){
 
         BufferedReader bReader=null;
+
         try {
-            File file = new File("C:\\Users\\soft\\Desktop\\薪资模板.csv");
+            File file = null;
+            try {
+                file=File.createTempFile("tmp", null);
+                multfile.transferTo(file);
+                file.deleteOnExit();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // File file = new File("C:\\Users\\soft\\Desktop\\薪资模板.csv");
             bReader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
         }catch (FileNotFoundException e){e.printStackTrace();}
         catch (IOException r){}
         String line = "";
         try {
-
-            System.out.print(bReader.readLine());
-
+            bReader.readLine();
            salaryService.deleteall();
 
             while ((line = bReader.readLine()) != "") {

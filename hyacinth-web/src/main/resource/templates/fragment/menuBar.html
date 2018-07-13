@@ -33,14 +33,19 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="/staff/list">Staff</a></li>
-                <li><a href="../views/layout.html">security layout</a> </li>
+                <li><a href="/logout">security layout</a> </li>
                 <li>
-                    <form>
-                    <span class="input">
+                  <!--  <form>
                       <input type="file" id="upfile" name="upfile" placeholder=""/>
-                     </span>
                         <button onclick="importCsv();">导入</button>
-
+                    </form>-->
+                    <form action="/import/staff" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="upfile"/>
+                        <input type="submit" value="员工导入"/>
+                    </form>
+                    <form action="/import/salary" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="upfile2"/>
+                        <input type="submit" value="薪资信息导入"/>
                     </form>
                 </li>
 
@@ -58,6 +63,7 @@
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
+<script src="../../../static/js/core/business/menuBar.js"></script>
 <script language="JavaScript">
 </script>
 </body>
