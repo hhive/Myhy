@@ -30,3 +30,20 @@ var menuBar = function () {
         }
     }
 };
+function importCsv(){
+    var formData = new FormData();
+    var name = $("#upfile").val();
+    formData.append("file",$("#upfile")[0].files[0]);
+    formData.append("name",name);
+    $.ajax({
+        url : ,
+        type : 'POST',
+        async : false ,
+        data : "json",
+        processData : false,
+        beforeSend:function () {
+            console.log("正在进行，亲稍等");
+        }
+
+    });
+}
