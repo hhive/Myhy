@@ -27,13 +27,46 @@ CREATE TABLE rt_user_role
 
 CREATE TABLE t_staff (
   id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  code          VARCHAR(255),
+  code     VARCHAR (255),
   name          VARCHAR(255),
-  idCard        VARCHAR(255),
+  position     VARCHAR(255),
+  department   VARCHAR (255),
   phone         VARCHAR(255),
-  email         VARCHAR(255)
+  email         VARCHAR(255),
+  emdate         VARCHAR (255)
 );
-
+CREATE TABLE t_salary(
+  code			 	 	         VARCHAR(255) PRIMARY KEY NOT NULL,
+  name				            VARCHAR(255),
+  basic_salary	 	         float,
+  overtime_wage 	       float,
+  post_allowance	       float,
+  performance_allowance  float,
+  total_contract_wages   float,
+  seniority_allowance    float,
+  meal_allowance      float ,
+  other_allowance		     float,
+  other_pre_tax_buckle   float,
+  total_payroll		 	     float,
+  real_basic_salary			     float,
+  real_overtime_allowance			float,
+  real_post_allowance     float ,
+  real_performance_allwoance float ,
+  sick_pay            float ,
+  gross_pay           float ,
+  social_security    float ,
+  housing_fund       float ,
+  income_tax         float ,
+  hotel_expense     float ,
+  water_electricity  float ,
+  mutual_fund        float ,
+  telephone_fare    float ,
+  networ_fee        float ,
+  deductions_after_tax   float ,
+  real_salary      float ,
+  real_allwoance  float,
+  total            float
+);
 INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (1, 'admin', 'Administrator', '', '123456', 'admin@admin.com');
 INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (2, 'user', 'User', '', '123456', 'user@user.com');
 
@@ -43,5 +76,3 @@ INSERT INTO t_role (id, code, description) VALUES (2, 'user', 'User');
 INSERT INTO rt_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO rt_user_role (user_id, role_id) VALUES (2, 2);
 
-INSERT INTO t_staff (id, code, name, idCard, phone, email) VALUES (1, 'DM10001', 'Peter', '1234567890', '1356666666', 'peter@cygia.com');
-INSERT INTO t_staff (id, code, name, idCard, phone, email) VALUES (2, 'DM10002', 'Demo', '5656565656', '1355555555', 'demo@cygia.com');

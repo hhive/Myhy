@@ -22,6 +22,6 @@ public class WebApplication {
     private static Logger logger = LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class);
+        SpringApplication.run(WebApplication.class,args);
     }
 }

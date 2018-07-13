@@ -9,6 +9,7 @@
         <groupId>com.dmsoft</groupId>
         <artifactId>practice-hyacinth</artifactId>
         <version>1.0.0-SNAPSHOT</version>
+
     </parent>
 
     <artifactId>hyacinth-web</artifactId>

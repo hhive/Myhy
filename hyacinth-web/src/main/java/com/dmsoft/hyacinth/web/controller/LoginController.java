@@ -6,6 +6,7 @@
 
 package com.dmsoft.hyacinth.web.controller;
 
+
 import com.dmsoft.hyacinth.server.entity.User;
 import com.dmsoft.hyacinth.server.service.UserService;
 
@@ -13,10 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Controller
 public class LoginController {
@@ -29,7 +34,8 @@ public class LoginController {
 
     @RequestMapping(value = "/index")
     public String index() {
-        return "index";
+        return "login";
+
     }
     @RequestMapping(value = "/login" )
     public String login(HttpServletRequest request){
@@ -43,11 +49,15 @@ public class LoginController {
             return "login";
         }
     }
-    @RequestMapping(value ="/send" )
-    public String sendMessage(Model model, @RequestParam(value = "username", required = false , defaultValue = "")String username){
-        model.addAttribute("username",username);
-        return "index";
+    @RequestMapping(value ="/send",method= RequestMethod.GET)
+    @ResponseBody
+    public Map<String , String >ajax (@RequestParam("username") String loginname){
+        System.out.println(loginname);
+        Map<String , String > map= new HashMap<String, String>();
+        map.put("name",loginname);
 
-
-    }}
+        System.out.println(map.get("name"));
+        return  map;
+    }
+    }
 

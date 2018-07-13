@@ -66,9 +66,11 @@ var staffs = function () {
                     {"data": "id"},
                     {"data": "code"},
                     {"data": "name"},
-                    {"data": "idCard"},
+                    {"data": "position"},
+                    {"data":"department"},
                     {"data": "phone"},
-                    {"data": "email"}
+                    {"data": "email"},
+                    {"data":"emdate"}
                 ]
             });
         }

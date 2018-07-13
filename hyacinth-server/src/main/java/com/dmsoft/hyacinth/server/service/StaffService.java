@@ -17,4 +17,6 @@ public interface StaffService {
     StaffDto findByCode(String code);
 
     List<StaffDto> findAll();
+    void deltetall();
+    void insert(long id,String code,String name,String position,String department,String phone,String email,String emdate);
 }

@@ -5,7 +5,7 @@
   ~  */
   -->
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.thymeleaf.org" xmlns:th="http://www.springframework.org/schema/jdbc">
 <head>
     <meta charset="UTF-8"/>
     <title>Login</title>
@@ -122,7 +122,7 @@
     <div class="row row-center vertical-center">
         <div class="well">
             <h5 class="h5-bold" align="left">登录</h5>
-            <form action="" method="post">
+            <form th:action="@{/login}" method="post">
                 <div class="inner-addon left-addon">
                     <img src="../static/images/icon_userid.png"/>
                     <input type="text" class="form-control" id="username" name="username" placeholder="请输入工号"/>
