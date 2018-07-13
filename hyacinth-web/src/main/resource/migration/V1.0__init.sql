@@ -64,7 +64,8 @@ CREATE TABLE t_salary(
   networ_fee        float ,
   deductions_after_tax   float ,
   real_salary      float ,
-  real_allwoance  float
+  real_allwoance  float,
+  total            float
 );
 INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (1, 'admin', 'Administrator', '', '123456', 'admin@admin.com');
 INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (2, 'user', 'User', '', '123456', 'user@user.com');
@@ -75,5 +76,3 @@ INSERT INTO t_role (id, code, description) VALUES (2, 'user', 'User');
 INSERT INTO rt_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO rt_user_role (user_id, role_id) VALUES (2, 2);
 
-INSERT INTO t_staff (id,code,name,position,department,  phone, email,emdate) VALUES (1, 'DM10001', 'Peter', '高级工程师','达明','1234567890', 'peter@cygia.com','2015/7/6');
-INSERT INTO t_staff (id, code, name, position,department,  phone, email,emdate) VALUES (2, 'DM10002', 'Jack', '高级工程师','达明','1234568520', 'jack@cygia.com','2015/7/8');

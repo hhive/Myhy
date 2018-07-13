@@ -8,7 +8,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "t_arlary")
+@Table(name = "t_salary")
 public class Salary extends BaseEntity {
     private String code;
     private String name;
@@ -39,6 +39,16 @@ public class Salary extends BaseEntity {
     private float deductions_after_tax;
     private float real_salary;
     private float real_allwoance;
+    private float total;
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
     public String getCode() {
         return code;
     }

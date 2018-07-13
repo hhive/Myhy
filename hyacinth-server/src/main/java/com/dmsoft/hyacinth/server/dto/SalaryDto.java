@@ -33,6 +33,16 @@ public class SalaryDto extends AbstractValueObject {
     private float deductions_after_tax;
     private float real_salary;
     private float real_allwoance;
+    private float total;
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
     public String getCode() {
         return code;
     }
