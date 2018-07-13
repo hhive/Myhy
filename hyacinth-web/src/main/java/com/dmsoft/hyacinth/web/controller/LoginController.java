@@ -29,7 +29,7 @@ public class LoginController {
 
     @RequestMapping(value = "/index")
     public String index() {
-        return "login";
+        return "index";
     }
     @RequestMapping(value = "/login" )
     public String login(HttpServletRequest request){

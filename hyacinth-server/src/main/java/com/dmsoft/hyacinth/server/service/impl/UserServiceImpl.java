@@ -45,23 +45,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User validateUser(String userName, String password) {
         User user = userDao.findByLoginNameAndPassword(userName, password);
-        if (user != null){
+        if (user != null) {
             return user;
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     @Override
     public void changePassword(String userName, String oldPwd, String newPwd) {
-        User entity = userDao.findByLoginName(userName);
-        if (entity.getPassword() == oldPwd) {
-            entity.setPassword(newPwd);
-        }else{
-            JOptionPane.showMessageDialog(null, "原密码错误，请重新输入", "alert", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+
+          userDao.update(userName,newPwd,oldPwd);
+//        User entity = userDao.findByLoginName(userName);
+//        if (entity != null) {
+//            if (entity.getPassword() == oldPwd) {
+//                userDao.update( userName,oldPwd,newPwd);
+//                JOptionPane.showMessageDialog(null, "可以", "alert", JOptionPane.ERROR_MESSAGE);
+//            } else {
+//                JOptionPane.showMessageDialog(null, "原密码错误，请重新输入", "alert", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "不对", "alert", JOptionPane.ERROR_MESSAGE);
+//        }
+   }
 }
 /* public StaffDto findByCode(String code) {
         Staff entity = staffDao.findByCode(code);

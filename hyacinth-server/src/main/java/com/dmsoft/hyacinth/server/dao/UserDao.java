@@ -48,6 +48,6 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
 
     @Modifying
     @Transactional
-    @Query("update User user set user.password = ?2 where user.loginName = ?1")
-    void update(String userName, String newPwd);
+    @Query("update User user set user.password = ?2 where user.loginName = ?1 and password = ?3")
+    void update(String userName, String newPwd,String oldPwd);
 }
