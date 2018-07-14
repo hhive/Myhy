@@ -37,28 +37,37 @@ public class LoginController {
     public String index() {
         return "login";
     }
+
     @RequestMapping(value = "/index1")
     public String index1() {
         return "index";
     }
-    @RequestMapping(value = "/login" )
-    public String login(HttpServletRequest request){
+
+    @RequestMapping(value = "/login")
+    public String login(HttpServletRequest request) {
+        Map<String,String> map = new HashMap<>();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = userService.validateUser(username,password);
-        if(user!= null){
+        User user = userService.validateUser(username, password);
+        if (user != null) {
+
             return "index";
-        }
-        else{
+        } else {
+            map.put("errorMsg", "密码错误");
             return "login";
         }
     }
 
-    @RequestMapping(value ="/send",method= RequestMethod.GET)
-    public String send(@RequestParam("username") String username,HttpServletRequest request){
+    @RequestMapping(value = "/send", method = RequestMethod.GET)
+    public String send(@RequestParam("username") String username, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("username",username);
+        session.setAttribute("username", username);
         return "index";
     }
-    }
 
+    @RequestMapping(value = "/logout")
+    public String logout() {
+        return "logout";
+
+    }
+}
