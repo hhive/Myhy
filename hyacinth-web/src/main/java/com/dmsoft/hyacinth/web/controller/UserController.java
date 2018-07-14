@@ -47,7 +47,7 @@ public class UserController {
       response.setContentType("text/html;charset=UTF-8");
       PrintWriter out = response.getWriter();
       username = (String) session.getAttribute("username");
-
+        System.out.println(username);
       if (userService.validateUser(username, oldPassword) != null) {
           if (oldPassword.equals(newPassword) != true) {
               userService.changePassword(username, oldPassword, newPassword);
@@ -58,7 +58,7 @@ public class UserController {
               return "views/changePassword";
           }
       } else {
-          out.print("<script language=\"javascript\">alert('旧密码输入错误！');window.location.href='/login'</script>");
-          return "login";
+          out.print("<script language=\"javascript\">alert('旧密码输入错误！');window.location.href='/user/pwd'</script>");
+          return "views/changePassword";
       }
   }}

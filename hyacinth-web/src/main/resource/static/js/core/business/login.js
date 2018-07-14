@@ -52,5 +52,16 @@ function login(){
     if(password == null){
         alert("密码为空");
     }
+    $.ajax({
+        type : "get",
+        url : "/send",
+        data :{"username": username},
+        dataType:"text",
+        async: false,
+        success : function () {
+        },
+        error : function () {
+        }
+    });
 
 }

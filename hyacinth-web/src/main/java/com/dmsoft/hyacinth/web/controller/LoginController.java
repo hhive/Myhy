@@ -50,7 +50,6 @@ public class LoginController {
         String password = request.getParameter("password");
         User user = userService.validateUser(username, password);
         if (user != null) {
-
             return "index";
         } else {
             map.put("errorMsg", "密码错误");
@@ -62,6 +61,7 @@ public class LoginController {
     public String send(@RequestParam("username") String username, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
+        System.out.println(username);
         return "index";
     }
 
