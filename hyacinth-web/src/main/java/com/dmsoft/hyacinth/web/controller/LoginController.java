@@ -50,14 +50,11 @@ public class LoginController {
         }
     }
     @RequestMapping(value ="/send",method= RequestMethod.GET)
-    @ResponseBody
-    public Map<String , String >ajax (@RequestParam("username") String loginname){
-        System.out.println(loginname);
-        Map<String , String > map= new HashMap<String, String>();
-        map.put("name",loginname);
+    public String sendMessage(Model model,@RequestParam(value ="username" , required = false,defaultValue = "") String username ){
 
-        System.out.println(map.get("name"));
-        return  map;
+        model.addAttribute("Loginname",username);
+        return "index.html";
     }
+
     }
 

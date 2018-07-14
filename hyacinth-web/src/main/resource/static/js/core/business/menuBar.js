@@ -36,14 +36,22 @@ function importCsv(){
     formData.append("file",$("#upfile")[0].files[0]);
     formData.append("name",name);
     $.ajax({
-        url : ,
+        url : "/index",
         type : 'POST',
         async : false ,
-        data : "json",
+        data :formData,
         processData : false,
         beforeSend:function () {
             console.log("正在进行，亲稍等");
         }
+
+    });
+}
+function Search(){
+    var imformation = $("#Imformation").val();
+    $.ajax({
+        url: "",
+        type : 'POST',
 
     });
 }
