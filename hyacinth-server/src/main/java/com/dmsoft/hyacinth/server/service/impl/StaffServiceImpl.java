@@ -69,4 +69,14 @@ public class StaffServiceImpl implements StaffService {
     public void deltetall() {
         staffDao.deleteAll();
     }
+
+    @Override
+    public StaffDto findByName(String msg) {
+        Staff entity = staffDao.findByName(msg);
+
+        StaffDto dto = new StaffDto();
+        BeanUtils.copyProperties(entity, dto);
+
+        return dto;
+    }
 }

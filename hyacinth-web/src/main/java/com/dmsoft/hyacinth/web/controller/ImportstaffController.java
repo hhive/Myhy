@@ -68,7 +68,7 @@ public class ImportstaffController {
     public String importsalary(@RequestParam("upfile2") MultipartFile multfile){
 
         BufferedReader bReader=null;
-
+        long i=1;
         try {
             File file = null;
             try {
@@ -78,7 +78,6 @@ public class ImportstaffController {
             }catch (IOException e) {
                 e.printStackTrace();
             }
-
             // File file = new File("C:\\Users\\soft\\Desktop\\薪资模板.csv");
             bReader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
         }catch (FileNotFoundException e){e.printStackTrace();}
@@ -121,7 +120,7 @@ public class ImportstaffController {
                     salary.setReal_allwoance(Float.parseFloat(pills[28]));
                     salary.setTotal(Float.parseFloat(pills[29]));
                     salaryService.save(salary);*/
-                salaryService.insert(pills[0],pills[1],Float.parseFloat(pills[2]),Float.parseFloat(pills[3]),Float.parseFloat(pills[4]),Float.parseFloat(pills[5]),Float.parseFloat(pills[6])
+                salaryService.insert(i++,pills[0],pills[1],Float.parseFloat(pills[2]),Float.parseFloat(pills[3]),Float.parseFloat(pills[4]),Float.parseFloat(pills[5]),Float.parseFloat(pills[6])
                          ,Float.parseFloat(pills[7]),Float.parseFloat(pills[8]),Float.parseFloat(pills[9]),Float.parseFloat(pills[10]),Float.parseFloat(pills[11]),Float.parseFloat(pills[12]),Float.parseFloat(pills[13])
                          ,Float.parseFloat(pills[14]),Float.parseFloat(pills[15]),Float.parseFloat(pills[16]),Float.parseFloat(pills[17]),Float.parseFloat(pills[18])
                          ,Float.parseFloat(pills[19]),Float.parseFloat(pills[20]),Float.parseFloat(pills[21]),Float.parseFloat(pills[22]),Float.parseFloat(pills[23]),Float.parseFloat(pills[24])
