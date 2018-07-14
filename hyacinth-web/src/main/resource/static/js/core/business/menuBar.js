@@ -36,7 +36,7 @@ function importCsv(){
     formData.append("file",$("#upfile")[0].files[0]);
     formData.append("name",name);
     $.ajax({
-        url : ,
+        url :"/index",
         type : 'POST',
         async : false ,
         data : "json",

@@ -4,9 +4,10 @@ import com.dmsoft.bamboo.common.dto.AbstractValueObject;
 
 public class SalaryDto extends AbstractValueObject {
 
+   private  Long id;
    private String code;
    private String name;
-   private float basic_salary	;
+    private float basic_salary	;
    private float overtime_wage;
    private float post_allowance;
     private float   performance_allowance;
@@ -35,6 +36,13 @@ public class SalaryDto extends AbstractValueObject {
     private float real_allwoance;
     private float total;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
     public float getTotal() {
         return total;
     }
