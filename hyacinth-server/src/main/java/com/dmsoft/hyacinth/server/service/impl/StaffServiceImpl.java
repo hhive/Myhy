@@ -64,6 +64,7 @@ public  class StaffServiceImpl implements StaffService {
     public StaffDto findByCode(String code) {
         Staff entity = staffDao.findByCode(code);
 
+        List<StaffDto> list = Lists.newArrayList();
         StaffDto dto = new StaffDto();
         BeanUtils.copyProperties(entity, dto);
 
