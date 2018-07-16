@@ -54,26 +54,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(String userName, String oldPwd, String newPwd) {
-
           userDao.update(userName,newPwd,oldPwd);
-//        User entity = userDao.findByLoginName(userName);
-//        if (entity != null) {
-//            if (entity.getPassword() == oldPwd) {
-//                userDao.update( userName,oldPwd,newPwd);
-//                JOptionPane.showMessageDialog(null, "可以", "alert", JOptionPane.ERROR_MESSAGE);
-//            } else {
-//                JOptionPane.showMessageDialog(null, "原密码错误，请重新输入", "alert", JOptionPane.ERROR_MESSAGE);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "不对", "alert", JOptionPane.ERROR_MESSAGE);
-//        }
    }
 }
-/* public StaffDto findByCode(String code) {
-        Staff entity = staffDao.findByCode(code);
-
-        StaffDto dto = new StaffDto();
-        BeanUtils.copyProperties(entity, dto);
-
-        return dto;
-    }*/
