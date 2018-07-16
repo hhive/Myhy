@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Peter Li on 2017/12/15.
  */
 @Service
-public class StaffServiceImpl implements StaffService {
+public  class StaffServiceImpl implements StaffService {
 
     @Autowired
     private StaffDao staffDao;
@@ -52,6 +52,15 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public StaffDto findByName(String msg) {
+        Staff entity = staffDao.findByName(msg);
+        StaffDto dto = new StaffDto();
+        BeanUtils.copyProperties(entity, dto);
+
+        return dto;
+    }
+
+    @Override
     public StaffDto findByCode(String code) {
         Staff entity = staffDao.findByCode(code);
 
@@ -69,4 +78,5 @@ public class StaffServiceImpl implements StaffService {
     public void deltetall() {
         staffDao.deleteAll();
     }
+
 }

@@ -9,39 +9,32 @@ public class SalaryDto extends AbstractValueObject {
    private float basic_salary	;
    private float overtime_wage;
    private float post_allowance;
-    private float   performance_allowance;
-    private float   total_contract_wages;
-    private float   seniority_allowance;
-    private float   meal_allowance;
-    private float    other_allowance;
-    private float   other_pre_tax_buckle;
-    private float    total_payroll;
-    private float   real_basic_salary;
-    private float   real_overtime_allowance;
-    private float   real_post_allowance;
-    private float  real_performance_allwoance;
-    private float  sick_pay ;
-    private float  gross_pay ;
-    private float  social_security ;
-    private float  housing_fund ;
-    private float  income_tax ;
-    private float  hotel_expense ;
-    private float  water_electricity ;
-    private float    mutual_fund ;
+    private float performance_allowance;
+    private float total_contract_wages;
+    private float seniority_allowance;
+    private float meal_allowance;
+    private float other_allowance;
+    private float other_pre_tax_buckle;
+    private float total_payroll;
+    private float real_basic_salary;
+    private float real_overtime_allowance;
+    private float real_post_allowance;
+    private float real_performance_allwoance;
+    private float sick_pay ;
+    private float gross_pay ;
+    private float social_security ;
+    private float housing_fund ;
+    private float income_tax ;
+    private float hotel_expense ;
+    private float water_electricity ;
+    private float mutual_fund ;
     private float telephone_fare ;
-    private float  networ_fee;
+    private float networ_fee;
     private float deductions_after_tax;
     private float real_salary;
     private float real_allwoance;
     private float total;
 
-    public float getTotal() {
-        return total;
-    }
-
-    public void setTotal(float total) {
-        this.total = total;
-    }
 
     public String getCode() {
         return code;
@@ -273,6 +266,17 @@ public class SalaryDto extends AbstractValueObject {
 
     public void setReal_allwoance(float real_allwoance) {
         this.real_allwoance = real_allwoance;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
+    public String getString(){
+        return "工号:"+code+"\n"+"姓名:"+name+"\n"+"应发基本工资:"+basic_salary+"\n"+"应发周末固定加班:"+overtime_wage+"\n"+"应发职位津贴:"+post_allowance+"\n"+"应发绩效津贴:"+performance_allowance+"\n"+"合同工资总额:"+total_contract_wages+"\n"+"年资补贴:"+seniority_allowance+"\n"+"餐费补贴:"+meal_allowance+"\n"+"其它补贴:"+other_allowance+"\n"+"税前其它扣补款:"+other_pre_tax_buckle+"\n"+"应发工资总额:"+total_payroll+"\n"+"实发基本工资:"+real_basic_salary+"\n"+"实发周末固定加班工资:"+real_overtime_allowance+"\n"+"实发职位津贴:"+real_post_allowance+"\n"+"实发绩效津贴:"+real_performance_allwoance+"\n"+"病假工资:"+sick_pay+"\n"+"税前工资总额:"+gross_pay+"\n"+"社保合计（个人）:"+social_security+"\n"+"住房公积金合计（个人）:"+housing_fund+"\n"+"个人收入所得税:"+income_tax+"\n"+"住宿费:"+hotel_expense+"\n"+"水电费:"+water_electricity+"\n"+"互助基金:"+mutual_fund+"\n"+"套餐话费:"+telephone_fare+"\n"+"网络费:"+ networ_fee+"\n"+"税后其它补扣款合计:"+deductions_after_tax+"\n"+"实发工资:"+ real_salary+"\n"+"实发奖金:"+real_allwoance+"\n"+"合计:"+total+"\n";
     }
 
 

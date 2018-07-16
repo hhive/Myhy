@@ -13,17 +13,17 @@ var staffs = function () {
             staffs.runDataTables();
         },
         // getSearchCondition: function () {
-            // var searchParam = {
-                // 'search_LIKE_orderSN': $('#orderSN').val(),
-                // 'search_EQ_boxCode': $('#selectedBoxName').val(),
-                // 'search_LIKE_userName': $('#userName').val(),
-                // 'search_LIKE_tradeNumber': $('#tradeNumber').val(),
-                // 'search_EQ_orderStatus': $('#selectedOrderStatus').val(),
-                // 'search_GTE_createTime': startTimeValue,
-                // 'search_LTE_createTime': endTimeValue
+        // var searchParam = {
+        // 'search_LIKE_orderSN': $('#orderSN').val(),
+        // 'search_EQ_boxCode': $('#selectedBoxName').val(),
+        // 'search_LIKE_userName': $('#userName').val(),
+        // 'search_LIKE_tradeNumber': $('#tradeNumber').val(),
+        // 'search_EQ_orderStatus': $('#selectedOrderStatus').val(),
+        // 'search_GTE_createTime': startTimeValue,
+        // 'search_LTE_createTime': endTimeValue
 
-            // };
-            // return searchParam;
+        // };
+        // return searchParam;
         // },
         runDataTables: function () {
             // var customParams = function (params) {
@@ -50,8 +50,9 @@ var staffs = function () {
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": '/staff/all',
-                    "type": "get",
+                    "url": '/staff/search',
+                    "type": "POST",
+                   // "data":{"message":"DM12345"},
                     "dataSrc": function (data) {
                         return data;
                     },

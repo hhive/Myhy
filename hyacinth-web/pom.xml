@@ -12,6 +12,7 @@
 
     </parent>
 
+
     <artifactId>hyacinth-web</artifactId>
     <packaging>jar</packaging>
     <name>Hyacinth-WEB :: Web Interface</name>
@@ -44,6 +45,21 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.dmsoft</groupId>
+            <artifactId>hyacinth-server</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dmsoft</groupId>
+            <artifactId>hyacinth-web</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.dmsoft</groupId>
+            <artifactId>hyacinth-web</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

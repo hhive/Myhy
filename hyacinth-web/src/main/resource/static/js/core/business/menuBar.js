@@ -36,10 +36,10 @@ function importCsv(){
     formData.append("file",$("#upfile")[0].files[0]);
     formData.append("name",name);
     $.ajax({
-        url : "/index",
-        type : 'POST',
+        url :"/index",
+        type : 'GET',
         async : false ,
-        data :formData,
+        data : "json",
         processData : false,
         beforeSend:function () {
             console.log("正在进行，亲稍等");
@@ -48,10 +48,20 @@ function importCsv(){
     });
 }
 function Search(){
-    var imformation = $("#Imformation").val();
-    $.ajax({
-        url: "",
-        type : 'POST',
-
-    });
+    var imformation = $("#message").val();
+    window.location.href="http://localhost:8888/staff/search1?message="+imformation;
+    // $.ajax({
+    //     url : "/staff/search",
+    //     type : 'POST',
+    //     data : {"message":imformation},
+    //     dataType : "json",
+    //     async:false,
+    //     success:function(data){
+    //        alert(data.name);
+    //       // window.location.href="http://localhost:8888/staff/search1?data="+data.name;
+    //     },
+    //     error:function(){
+    //            alert("error");
+    //     }
+    // });
 }

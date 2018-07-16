@@ -14,15 +14,16 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 
+import java.util.List;
+
 /**
  * Created by Peter on 2016/7/11.
  */
 public interface StaffDao extends PagingAndSortingRepository<Staff, Long>, JpaSpecificationExecutor<Staff> {
 
     Staff findById(Long id);
-
     Staff findByCode(String code);
-
+    List<Staff> findByName(String name);
     @Override
     void deleteAll();
 

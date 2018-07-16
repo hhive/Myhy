@@ -36,7 +36,8 @@ CREATE TABLE t_staff (
   emdate         VARCHAR (255)
 );
 CREATE TABLE t_salary(
-  code			 	 	         VARCHAR(255) PRIMARY KEY NOT NULL,
+ id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  code			 	 	         VARCHAR(255) ,
   name				            VARCHAR(255),
   basic_salary	 	         float,
   overtime_wage 	       float,
@@ -66,6 +67,12 @@ CREATE TABLE t_salary(
   real_salary      float ,
   real_allwoance  float,
   total            float
+);
+CREATE TABLE t_log(
+  id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  opera_time   DATE ,
+  opera_name    VARCHAR(255),
+  description   VARCHAR(255)
 );
 INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (1, 'admin', 'Administrator', '', '123456', 'admin@admin.com');
 INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (2, 'user', 'User', '', '123456', 'user@user.com');
