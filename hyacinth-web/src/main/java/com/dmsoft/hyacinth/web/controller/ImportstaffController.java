@@ -53,7 +53,6 @@ public class ImportstaffController {
             bReader.readLine();
             staffService.deltetall();
             while ((line = bReader.readLine()) != "") {
-                System.out.print(line);
                 String[] pills = line.split(";");
                 long id = Long.parseLong(pills[0]);
                 staffService.insert(id, pills[1], pills[2], pills[3], pills[4], pills[5], pills[6], pills[7]);

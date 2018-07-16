@@ -39,7 +39,6 @@ public class StaffController {
     @RequestMapping(value = "/search1",method = RequestMethod.GET)
     public String search1(@RequestParam(value = "message",required = false)String msg,HttpServletRequest request){
         HttpSession session = request.getSession(true);
-        System.out.print(msg);
         if(msg=="") session.setAttribute("message",null);
         else session.setAttribute("message", msg);
         return "views/staff/staffsearch";
@@ -52,7 +51,6 @@ public class StaffController {
         HttpSession session = request.getSession(true);
 
         String msg = (String) session.getAttribute("message");
-        System.out.print("b");
         List<StaffDto> staffDto= Lists.newArrayList();
         if(msg==null) {return staffDto=staffService.findAll();}
         else {

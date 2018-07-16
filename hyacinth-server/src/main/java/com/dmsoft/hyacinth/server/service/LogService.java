@@ -13,5 +13,6 @@ import java.util.Date;
 import java.util.List;
 
 public interface LogService {
+    List<LogDto> findAll();
     void insert(Long id,Date opera_time, String opera_name, String description);
 }
