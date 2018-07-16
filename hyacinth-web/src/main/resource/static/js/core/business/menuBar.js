@@ -50,6 +50,7 @@ function importCsv(){
 function Search(){
     var imformation = $("#message").val();
     window.location.href="http://localhost:8888/staff/search1?message="+imformation;
+    //window.location.href="http://localhost:8888/staff/search1?message="+imformation;
     // $.ajax({
     //     url : "/staff/search",
     //     type : 'POST',
