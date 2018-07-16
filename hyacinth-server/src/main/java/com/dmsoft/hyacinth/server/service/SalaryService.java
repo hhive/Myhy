@@ -15,4 +15,5 @@ public interface SalaryService {
             ,float va20,float va21,float va22,float va23,float va24,float va25,float va26,float va27,float va28
             ,float va29,float va30,float va31);
     List<SalaryDto> findAll();
+    String getstring();
 }

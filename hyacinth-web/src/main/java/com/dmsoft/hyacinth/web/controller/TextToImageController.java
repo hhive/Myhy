@@ -6,12 +6,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import com.sun.image.codec.jpeg.JPEGCodec;
 
 
 
-public class TextToImage {
+public class TextToImageController {
     /** 文本文件  */
     private File textFile;
     /** 图片文件 */
@@ -20,9 +21,9 @@ public class TextToImage {
     /** 图片 */
     private BufferedImage image;
     /** 图片宽度  */
-    private final int IMAGE_WIDTH = 400;
+    private final int IMAGE_WIDTH = 200;
     /** 图片高度 */
-    private final int IMAGE_HEIGHT = 600;
+    private final int IMAGE_HEIGHT =550;
     /** 图片类型  */
     private final int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
 
@@ -31,7 +32,7 @@ public class TextToImage {
      * @param textFile 文本文件
      * @param imageFile 图片文件
      */
-    public TextToImage(File textFile, File imageFile){
+    public TextToImageController(File textFile, File imageFile){
         this.textFile = textFile;
         this.imageFile = imageFile;
         this.image = new BufferedImage(IMAGE_WIDTH, IMAGE_HEIGHT, IMAGE_TYPE);
@@ -41,7 +42,7 @@ public class TextToImage {
      * 将文本文件里文字，写入到图片中保存
      * @return boolean  true，写入成功；false，写入失败
      */
-    public boolean convert(){
+    public boolean convert() throws IOException {
 
         //读取文本文件
         BufferedReader reader = null;
@@ -65,6 +66,7 @@ public class TextToImage {
         int lineNum = 1;
         try {
             while((line = reader.readLine()) != null){
+                //System.out.print(line);
                 g.drawString(line, 0, lineNum * Y_LINEHEIGHT);
                 lineNum++;
             }
@@ -78,6 +80,9 @@ public class TextToImage {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        }
+        finally {
+            reader.close();
         }
         return true;
     }

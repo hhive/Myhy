@@ -8,12 +8,18 @@ package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dto.StaffDto;
 import com.dmsoft.hyacinth.server.service.StaffService;
-import org.hibernate.annotations.Parameter;
+import org.apache.commons.lang.NullArgumentException;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.io.*;
 import java.util.List;
+import java.util.zip.ZipOutputStream;
 
 @Controller
 @RequestMapping(value = "/staff")
@@ -32,16 +38,5 @@ public class StaffController {
     public List<StaffDto> findAll() {
         List<StaffDto> list = staffService.findAll();
         return list;
-    }
-
-    @RequestMapping(value = "/search")
-    public String search(@RequestParam("searchmsg")String msg){
-        StaffDto staffDto;
-        staffDto=staffService.findByCode(msg);
-        if(staffDto==null){
-            staffDto=staffService.findByName(msg);
-            if(staffDto==null) return null;
-            else return  "index";
-        }else  return "login";
     }
 }
