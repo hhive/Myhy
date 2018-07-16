@@ -37,7 +37,10 @@ public class LoginController {
     @RequestMapping(value = "/index")
     public String index() {
         return "login";
-
+    }
+    @RequestMapping(value = "/home")
+    public String home() {
+        return "index";
     }
     @RequestMapping(value = "/login" )
     public String login(HttpServletRequest request){
@@ -53,14 +56,6 @@ public class LoginController {
             map.put("errorMsg","密码错误");
             return "login";
         }
-    }
-    @RequestMapping(value ="/send",method= RequestMethod.GET)
-    //@ResponseBody
-    public Map<String , String > ajax (@RequestParam("username") String loginname){
-        System.out.println(loginname);
-        Map<String , String > map= new HashMap<String, String>();
-        map.put("name",loginname);
-        return  map;
     }
     @RequestMapping(value = "/logout")
     public String logout() {

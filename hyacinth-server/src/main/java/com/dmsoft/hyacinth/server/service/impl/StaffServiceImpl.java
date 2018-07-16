@@ -46,19 +46,21 @@ public class StaffServiceImpl implements StaffService {
     public StaffDto findById(Long id) {
         Staff entity = staffDao.findById(id);
         StaffDto dto = new StaffDto();
+        if(!(entity==null))
         BeanUtils.copyProperties(entity, dto);
 
         return dto;
     }
 
     @Override
-    public StaffDto findByCode(String code) {
+    public List<StaffDto> findByCode(String code) {
         Staff entity = staffDao.findByCode(code);
-
+        List<StaffDto> list = Lists.newArrayList();
         StaffDto dto = new StaffDto();
-        BeanUtils.copyProperties(entity, dto);
-
-        return dto;
+        if(!(entity==null))
+        {BeanUtils.copyProperties(entity, dto);list.add(dto);}
+        else return null;
+        return list;
     }
     @Override
     public void insert(long id,String code,String name,String position,String department,String phone,String email,String emdate){
@@ -71,12 +73,17 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public StaffDto findByName(String msg) {
-        Staff entity = staffDao.findByName(msg);
+    public List<StaffDto> findByName(String msg) {
+        Iterable<Staff> entityList = staffDao.findByName(msg);
 
-        StaffDto dto = new StaffDto();
-        BeanUtils.copyProperties(entity, dto);
+        List<StaffDto> list = Lists.newArrayList();
 
-        return dto;
+        entityList.forEach(entity -> {
+            StaffDto dto = new StaffDto();
+            BeanUtils.copyProperties(entity, dto);
+            list.add(dto);
+        });
+
+        return list;
     }
 }
