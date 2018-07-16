@@ -61,7 +61,7 @@ public class ImportstaffController {
         }catch(IOException e){
             e.printStackTrace();
         }finally {
-            return "views/staff/staffs";
+            return "views/staff/staffsearch";
         }
     }
     @RequestMapping(value = "salary",method = RequestMethod.POST)
@@ -133,7 +133,7 @@ public class ImportstaffController {
         }catch(IOException e){
             e.printStackTrace();
         }finally {
-            return "views/staff/staffs";
+            return "views/staff/staffsearch";
         }
     }
 }
