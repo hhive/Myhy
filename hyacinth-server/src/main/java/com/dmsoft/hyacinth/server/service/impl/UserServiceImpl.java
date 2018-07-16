@@ -52,8 +52,70 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+
     @Override
     public void changePassword(String userName, String oldPwd, String newPwd) {
-          userDao.update(userName,newPwd,oldPwd);
+          userDao.updatePwd(userName,newPwd,oldPwd);
    }
+
+    @Override
+    public void insert(String code,String username,String name,String salt,String password,String email){
+        userDao.insert(code,username, name,salt,password, email);
+    }
+
+    @Override
+    public   void update(long id,String code,String username,String name,String salt,String password,String email){
+       System.out.println("888888888888888888");
+        userDao.update(id,code,username, name,salt,password, email);
+    }
+
+    @Override
+    public void deleteOne(long id){
+        userDao.deleteOne(id);
+    }
+
+    public UserDto findUserByCode (String code){
+        User entity = userDao.findUserByCode(code);
+        UserDto dto = new UserDto();
+        BeanUtils.copyProperties(entity,dto);
+
+        return dto;
+    }
+
+    public UserDto findByCode (String code){
+        User entity = userDao.findUserByCode(code);
+        UserDto dto = new UserDto();
+        BeanUtils.copyProperties(entity,dto);
+
+        return dto;
+    }
+
+    public UserDto findUserByusername(String username){
+        User entity = userDao.findUserByCode(username);
+        UserDto dto = new UserDto();
+        BeanUtils.copyProperties(entity,dto);
+
+        return dto;
+    }
+
+    public List<UserDto> userList(int startRecord,int pageSize){
+
+        //return userDao.UserList(startRecord,pageSize);
+        Iterable<User> entityList = userDao.findAll();
+
+        List<UserDto> list = Lists.newArrayList();
+
+        entityList.forEach(entity -> {
+            UserDto dto = new UserDto();
+            BeanUtils.copyProperties(entity, dto);
+            list.add(dto);
+        });
+
+        return list;
+    }
+
+    public int gettusernumber( ){
+        System.out.println(userDao.gettstunumber());
+        return userDao.gettstunumber();
+    }
 }

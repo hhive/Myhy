@@ -1,6 +1,7 @@
 package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dao.UserDao;
+import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.service.UserService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import javax.swing.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -25,40 +29,77 @@ public class UserController {
     @Autowired
     private UserService userService;
     UserDao userDao;
-    String username;
-    Session session;
 
-
-    @RequestMapping(value = "/pwd")
-    public String changepwd() {
-       // session.setAttribute("user",username);
-
-        return "views/changePassword";
+    @RequestMapping(value = "/userView")
+    public String userView(){
+        return "views/user/users";
     }
-  //  @SessionAttributes("userName");
-  @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-  public String Submit(@ModelAttribute User user,
-                       @RequestParam(name = "oldPassword") String oldPassword,
-                       @RequestParam(name = "newPassword") String newPassword,
-                       String username,
-                       HttpServletRequest request,
-                       HttpServletResponse response) throws IOException {
-      HttpSession session = request.getSession();
-      response.setContentType("text/html;charset=UTF-8");
-      PrintWriter out = response.getWriter();
-      username = (String) session.getAttribute("username");
-        System.out.println(username);
-      if (userService.validateUser(username, oldPassword) != null) {
-          if (oldPassword.equals(newPassword) != true) {
-              userService.changePassword(username, oldPassword, newPassword);
-              out.print("<script language=\"javascript\">alert('修改密码成功！');window.location.href='/index1'</script>");
-              return "index";
-          } else {
-              out.print("<script language=\"javascript\">alert('新密码与旧密码重复！');window.location.href='/user/pwd'</script>");
-              return "views/changePassword";
-          }
-      } else {
-          out.print("<script language=\"javascript\">alert('旧密码输入错误！');window.location.href='/user/pwd'</script>");
-          return "views/changePassword";
-      }
-  }}
+
+    @ResponseBody
+    @RequestMapping(value = "/all")
+    public Map getUserList(HttpServletRequest request){
+
+        int page=Integer.parseInt(request.getParameter("page"));
+        int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
+        int startRecord=(page-1)*pageSzie+1;
+
+        int total=userService.gettusernumber();
+
+        List<UserDto>  userinforlist=userService.userList(startRecord,pageSzie);
+       // System.out.println("5555555555555555555");
+        Map resultMap=new HashMap();
+        resultMap.put("total",total-1);
+        resultMap.put("rows",userinforlist);
+        return resultMap;
+    }
+
+    @ResponseBody//如果需要返回JSON，XML或自定义mediaType内容到页面，则需要在对应的方法上加上@ResponseBody注解。
+    @RequestMapping(value = "/insertUser", method = RequestMethod.POST)
+    public Map<String,String> insertUser(@RequestParam(name="code") String code,
+                             @RequestParam(name="loginName") String loginName,
+                             @RequestParam(name="name") String name,
+                             @RequestParam(name="salt") String salt,
+                             @RequestParam(name="password") String password,
+                             @RequestParam(name="email") String email) {
+        Map<String,String> map=new HashMap<>();
+        userService.insert(code,loginName,name,salt,password,email);
+        map.put("success","true");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateUser" ,method = RequestMethod.POST)
+    public Map<String,String> updateUser(@RequestParam(name="id") long id,
+                              @RequestParam(name="code" ) String code,
+                              @RequestParam(name="loginName") String loginName,
+                              @RequestParam(name="name") String name,
+                              @RequestParam(name="salt") String salt,
+                              @RequestParam(name="password") String password,
+                              @RequestParam(name="email") String email){
+        Map<String,String> map=new HashMap<>();
+        userService.update(id,code,loginName,name,salt,password,email);
+        map.put("success","true");
+        return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteOne")
+    public Map<String,String> deleteOne(@RequestParam(name="id",required = false ) long id){
+        Map<String,String> map=new HashMap<>();
+        userService.deleteOne(id);
+        map.put("success","true");
+        return map;
+    }
+
+    @RequestMapping(value = "/code")
+    public String findByCode(@RequestParam(name="id") String code){
+        userService.findByCode(code);
+        return "views/user/users";
+    }
+
+    @RequestMapping(value="username")
+    public String findUserByusername( @RequestParam(name="id") String userName){
+        userService.findUserByusername(userName);
+        return "views/user/users";
+    }
+}

@@ -24,6 +24,11 @@ public interface UserService {
      */
     UserDto findUserById(Long id);
 
+    UserDto findUserByCode(String code);
+
+    UserDto findByCode(String code);
+
+    UserDto findUserByusername(String username);
     /**
      * Find all users.
      *
@@ -48,4 +53,15 @@ public interface UserService {
      * @param newPwd   the new password
      */
     void changePassword(String userName, String oldPwd, String newPwd);
+
+    void insert(String code,String username,String name,String salt,String password,String email);
+
+    void update(long id,String code,String username,String name,String salt,String password,String email);
+
+    void deleteOne(long id);
+
+     List<UserDto> userList(int startRecord,int pageSize);
+
+    int gettusernumber( );
+
 }

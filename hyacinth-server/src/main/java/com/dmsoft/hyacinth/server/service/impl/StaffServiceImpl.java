@@ -28,8 +28,7 @@ public class StaffServiceImpl implements StaffService {
 
     @Override
     public List<StaffDto> findAll() {
-        Iterable<Staff> entityList = staffDao.
-                findAll();
+        Iterable<Staff> entityList = staffDao.findAll();
 
         List<StaffDto> list = Lists.newArrayList();
 

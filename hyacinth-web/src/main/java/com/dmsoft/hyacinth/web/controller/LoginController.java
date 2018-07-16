@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,8 +69,10 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/logout")
-    public String logout() {
-        return "logout";
-
+    public String logout(HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.print("<script language=\"javascript\">alert('退出成功！');window.location.href='login'</script>");
+        return "login";
     }
 }
