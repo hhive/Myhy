@@ -56,7 +56,7 @@ var staffs = function () {
                 //"serverSide" : true,//服务器端进行分页处理的意思
              //"bPaginate": true,
              //   //"bProcessing": true
-                "sDom": 't<"bottom"flp><"clear">',
+               "sDom": 't<"bottom"flp><"clear">',
              //   "processing": true,
               //  "serverSide": true,
              //   "destroy": true,
@@ -85,14 +85,14 @@ var staffs = function () {
                     {"data": "email"},
                     {"data":"emdate"}
                 ],
-              /*  "columnDefs": [
+              "columnDefs": [
                     {
                         "render": function ( data, type, row ) {
                             return "<input type='radio' name='onDutyToId'  value='" + data + "'>";
                         },
                         "targets": 0 //指定渲染列：第一列(渲染第一列为单选框，data自动匹配为  {"data":"id"}中数据）
                     },
-                ],*/
+                ],
                 "oLanguage" : { // 国际化配置
                     "sProcessing" : "正在获取数据，请稍后...",
                     "sLengthMenu" : "显示 _MENU_ 条",
@@ -138,3 +138,50 @@ var staffs = function () {
     };
 
 }();
+$(function () {
+    $("#change").click(function(){
+        var val = $('input:radio[name="onDutyToId"]:checked').val();
+        if(val==null){
+            alert("什么都没有选中");
+            return false;
+        }
+        else {
+            $.ajax({
+                url : "/staff/print",
+                type : "post",
+                data : {"id":val},
+                dataType : "json",
+                success: function(data){
+                    $('#code').val(data.code);
+                    $('#name').val( data.name);
+                    $('#email').val(data.email);
+
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+
+            var doc=document;
+            var Back=doc.getElementById('black'),
+                DialogBox=doc.getElementById('dialogBox'),
+                DialogClose=DialogBox.getElementsByClassName('dialog_close')[0];
+            //显示遮罩层
+            Back.style.display='block';
+            //显示弹出窗口
+            DialogBox.style.display='block';
+            DialogClose.onclick=function () {
+                //隐藏遮罩层
+                Back.style.display='none';
+                //显示弹出窗口
+                DialogBox.style.display='none';
+            }
+            Back.onclick=function () {
+                //隐藏遮罩层
+                Back.style.display='none';
+                //显示弹出窗口
+                DialogBox.style.display='none';
+            }
+        }
+    })
+});
