@@ -5,6 +5,7 @@
  */
 
 var index = function () {
+
     var components = {};
     return {
         initIndex: function () {
@@ -67,4 +68,9 @@ var index = function () {
         //
         // }
     };
+
 }();
+function show(){
+    var loginname ='${Loginname}';
+    alert(loginname);
+}

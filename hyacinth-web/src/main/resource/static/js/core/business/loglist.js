@@ -6,28 +6,24 @@
 
 var staffs = function () {
     var dt_staffList;
-    var Dtable = $('#demo').DataTable();
-    // var startTimeValue;
-    // var endTimeValue;
     return {
         init: function () {
             staffs.runDataTables();
         },
 
+        runDataTables: function () {
 
 
-    runDataTables: function () {
-
-            dt_staffList = $("#dt_staffList").DataTable({
-                //"sDom": 't<"bottom"flp><"clear">',
+            dt_staffList = $("#dt_logList").DataTable({
+               // "sDom": 't<"bottom"flp><"clear">',
                // "bFilter": false,
                // "paging": false,
                // "processing": true,
               //  "serverSide": true,
                 "ajax": {
-                    "url": '/staff/search',
+                    "url": '/log/all',
                     "type": "GET",
-                   // "data":{"message":"DM12345"},
+                    // "data":{"message":"DM12345"},
                     "dataSrc": function (data) {
                         return data;
                     },
@@ -40,13 +36,9 @@ var staffs = function () {
                 },
                 "columns": [
                     {"data": "id"},
-                    {"data": "code"},
-                    {"data": "name"},
-                    {"data": "position"},
-                    {"data":"department"},
-                    {"data": "phone"},
-                    {"data": "email"},
-                    {"data":"emdate"}
+                    {"data": "opera_time"},
+                    {"data": "opera_name"},
+                    {"data": "description"},
                 ],
                 "oLanguage" : { // 国际化配置
                     "sProcessing" : "正在获取数据，请稍后...",
@@ -89,7 +81,7 @@ var staffs = function () {
                     return options;
                 },
             });
-    }
+        }
     };
 
 }();
