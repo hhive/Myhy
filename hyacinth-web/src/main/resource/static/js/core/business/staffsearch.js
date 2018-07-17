@@ -51,7 +51,7 @@ var staffs = function () {
                 "serverSide": true,
                 "ajax": {
                     "url": '/staff/search',
-                    "type": "POST",
+                    "type": "GET",
                    // "data":{"message":"DM12345"},
                     "dataSrc": function (data) {
                         return data;
