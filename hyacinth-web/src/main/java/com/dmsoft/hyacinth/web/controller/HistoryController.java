@@ -18,11 +18,11 @@ public class HistoryController {
     @RequestMapping(value = "test")
     public String packagehistory(){
         Date date=new Date();
-        logService.insert(null,date,"打包加密",null);
+        logService.insert(null,date,null,"打包加密");
     return "views/success";
     }
     public  void sendhistory(){
         Date date=new Date();
-        logService.insert(null,date,"发送邮件",null);
+        logService.insert(null,date,null,"发送邮件");
     }
 }
