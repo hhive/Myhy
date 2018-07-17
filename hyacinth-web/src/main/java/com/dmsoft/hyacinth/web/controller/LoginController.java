@@ -7,6 +7,7 @@
 package com.dmsoft.hyacinth.web.controller;
 
 
+import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.entity.User;
 import com.dmsoft.hyacinth.server.service.UserService;
 
@@ -37,24 +38,37 @@ public class LoginController {
         return "login";
 
     }
-    @RequestMapping(value = "/login" )
-    public String login(HttpServletRequest request){
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+    @ResponseBody
+    @RequestMapping(value = "/login",method =RequestMethod.GET)
+    public User login(@RequestParam(value="Username",required = false) String username,@RequestParam(value = "Password",required = false) String password){
         User user = userService.validateUser(username,password);
         if(user!= null){
-            return "index";
+            return user;
         }
         else{
-            return "login";
+            return null;
         }
     }
-    @RequestMapping(value ="/send",method= RequestMethod.GET)
-    public String sendMessage(Model model,@RequestParam(value ="username" , required = false,defaultValue = "") String username ){
+    @RequestMapping(value = "/success")
+    public String success() {
+        return "index";
 
-        model.addAttribute("Loginname",username);
-        return "index.html";
     }
+    @RequestMapping(value ="/logout")
+    public String logout(){
+        return "logout";
+    }
+
+    @RequestMapping(value="/home")
+    public String home(){
+        return "index";
+    }
+    //@RequestMapping(value ="/send",method= RequestMethod.GET)
+    //public String sendMessage(Model model,@RequestParam(value ="username" , required = false,defaultValue = "") String username ){
+
+    //    model.addAttribute("Loginname",username);
+    //    return "index.html";
+    //}
 
     }
 

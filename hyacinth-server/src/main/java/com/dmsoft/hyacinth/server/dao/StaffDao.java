@@ -22,6 +22,8 @@ import java.util.List;
 public interface StaffDao extends PagingAndSortingRepository<Staff, Long>, JpaSpecificationExecutor<Staff> {
 
     Staff findById(Long id);
+
+
     Staff findByCode(String code);
     List<Staff> findByName(String name);
     @Override

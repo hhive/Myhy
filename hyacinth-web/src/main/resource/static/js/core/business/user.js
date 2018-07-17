@@ -1,16 +1,10 @@
-/*
- *
- *  * Copyright (c) 2018. For DMSoft Group.
- *
- */
-
-var staffs = function () {
-    var dt_staffList;
+var user = function () {
+    var dt_userList;
     // var startTimeValue;
     // var endTimeValue;
     return {
         init: function () {
-            staffs.runDataTables();
+            user.runDataTables();
         },
         // getSearchCondition: function () {
         // var searchParam = {
@@ -43,28 +37,28 @@ var staffs = function () {
             //     return params;
             // };
 
-            dt_staffList = $("#dt_staffList").DataTable({
+            dt_userList = $("#dt_staffList").DataTable({
                 //"paging": true,
-               // "iDisplayLength": 5, //默认每页数量
+                // "iDisplayLength": 5, //默认每页数量
                 //"bPaginate": true, //翻页功能
                 //"bLengthChange": true, //改变每页显示数据数量
                 //"bFilter": true, //过滤功能
                 //"bSort": true, //排序功能
                 //"bInfo": true, //页脚信息
-               // "bAutoWidth": true, //自动宽度
-               // "bRetrieve": true,
+                // "bAutoWidth": true, //自动宽度
+                // "bRetrieve": true,
                 //"serverSide" : true,//服务器端进行分页处理的意思
-             //"bPaginate": true,
-             //   //"bProcessing": true
-               "sDom": 't<"bottom"flp><"clear">',
-             //   "processing": true,
-              //  "serverSide": true,
-             //   "destroy": true,
-             //   "retrieve":true,
+                //"bPaginate": true,
+                //   //"bProcessing": true
+                "sDom": 't<"bottom"flp><"clear">',
+                //   "processing": true,
+                //  "serverSide": true,
+                //   "destroy": true,
+                //   "retrieve":true,
                 "ajax": {
                     "url": '/staff/search',
                     "type": "POST",
-                   // "data":{"message":"DM12345"},
+                    // "data":{"message":"DM12345"},
                     "dataSrc": function (data) {
                         return data;
                     },
@@ -85,7 +79,7 @@ var staffs = function () {
                     {"data": "email"},
                     {"data":"emdate"}
                 ],
-              "columnDefs": [
+                "columnDefs": [
                     {
                         "render": function ( data, type, row ) {
                             return "<input type='radio' name='onDutyToId'  value='" + data + "'>";
@@ -127,7 +121,7 @@ var staffs = function () {
                         lengthMenu : [5, 10, 15, 20 ],
                         pageLength :5,
                         order : settings.order,// [index,'asc|desc']
-                       // language : DataTablePaging.language.zh_cn,
+                        // language : DataTablePaging.language.zh_cn,
                         columns : settings.colums,
                         columnDefs : settings.columsdefs,
                     };

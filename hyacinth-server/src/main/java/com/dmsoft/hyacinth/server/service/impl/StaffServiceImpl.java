@@ -54,7 +54,6 @@ public  class StaffServiceImpl implements StaffService {
     @Override
     public List<StaffDto> findByName(String msg) {
         Iterable<Staff> entityList = staffDao.findByName(msg);
-
         List<StaffDto> list = Lists.newArrayList();
 
         entityList.forEach(entity -> {
@@ -65,6 +64,7 @@ public  class StaffServiceImpl implements StaffService {
 
         return list;
     }
+
 
     @Override
     public List<StaffDto> findByCode(String code) {
