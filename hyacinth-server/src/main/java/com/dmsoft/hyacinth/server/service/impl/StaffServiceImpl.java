@@ -79,6 +79,13 @@ public  class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public  StaffDto findcode(String code){
+        Staff entity =staffDao.findByCode(code);
+        StaffDto dto = new StaffDto();
+        BeanUtils.copyProperties(entity, dto);
+        return dto;
+    }
+    @Override
     public void insert(long id,String code,String name,String position,String department,String phone,String email,String emdate){
         staffDao.insert(id, code, name, position, department, phone, email, emdate);
     }

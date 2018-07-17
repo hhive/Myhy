@@ -76,6 +76,7 @@
 </div>
 
 <div id="body" class="container" style="width: calc(100% - 5px); float:right">
+
     <div class="well" style="padding-left: 30px; padding-right: 30px;">
         <div class="table-title" style="margin-top: 23px">
             <h5 class="h5-gray-low">Staff Count&nbsp;</h5>
@@ -98,7 +99,9 @@
             <tbody>
             </tbody>
         </table>
+
     </div>
+
 </div>
 <div class="black" id="black"></div>
 <div class="dialog" id="dialogBox">
@@ -133,9 +136,14 @@
     </form>
 </div>
 
+
 <script src="../../../static/js/core/business/staffsearch.js"></script>
 <script src="../../../static/js/core/business/menuBar.js"></script>
 <script type="text/javascript">
+
+    $('button').click(function () {
+        alert($('#demo').DataTable().rows('.selected').data().length +' row(s) selected' );
+    });
 
     $(document).ready(function () {
         var $divMenuBar = $("#divMenuBar");
