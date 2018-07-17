@@ -122,6 +122,14 @@
     <a href="#" class="easyui-linkbutton"  onclick="addUsers()">添加</a>
     <a href="#" class="easyui-linkbutton"  onclick="javascript:$('#adddg').dialog('close')">取消</a>
 </div>
+<script type="text/javascript">
 
+    $(document).ready(function () {
+        var $divMenuBar = $("#divMenuBar");
+        $divMenuBar.load("../../fragment/menuBar.html #navMenuBar", function () {
+        });
+    });
+    staffs.init();
+</script>
 </body>
 </html>

@@ -22,13 +22,13 @@ function editUsers(){
 
 //信息保存按钮事件
 function saveUsers(){
-    var row = $('#datagrid').datagrid('getSelected');
-    var add;
-    if(row==null){
-        add="/user/insertUser?id=0";
-    } else{
-        add="/user/updateUser?id="+row.id;
-    }
+    // var row = $('#datagrid').datagrid('getSelected');
+    // var add;
+    // if(row==null){
+    //     add="/user/insertUser?id=0";
+    // } else{
+    //     add="/user/updateUser?id="+row.id;
+    // }
 
     $('#fim').form('submit',{
         url:"/user/updateUser",

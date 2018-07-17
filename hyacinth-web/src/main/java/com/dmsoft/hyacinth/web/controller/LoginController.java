@@ -65,6 +65,8 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute("username", username);
         System.out.println(username);
+        String userEmail=userService.getUserEamil(username);
+        System.out.println(userEmail);
         return "index";
     }
 

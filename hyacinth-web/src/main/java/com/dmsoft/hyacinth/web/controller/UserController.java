@@ -5,6 +5,9 @@ import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.service.UserService;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
+import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -38,20 +42,19 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/all")
     public Map getUserList(HttpServletRequest request){
-
-        int page=Integer.parseInt(request.getParameter("page"));
-        int pageSzie=Integer.parseInt(request.getParameter("rows"));//pageSzie
-        int startRecord=(page-1)*pageSzie+1;
-
+        Integer page=Integer.parseInt(request.getParameter("page"));
+        Integer pageSize=Integer.parseInt(request.getParameter("rows"));//pageSize
+        Integer startRecord=(page-1)*pageSize+1;
         int total=userService.gettusernumber();
-
-        List<UserDto>  userinforlist=userService.userList(startRecord,pageSzie);
-       // System.out.println("5555555555555555555");
+      //  List<UserDto>  userinfolist=userService.findAllandPage(startRecord,pageSize);
+        List<UserDto>  userinfolist=userService.findAllandPage(startRecord,pageSize);
+        System.out.println("5555555555555555555");
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
-        resultMap.put("rows",userinforlist);
+        resultMap.put("rows",userinfolist);
         return resultMap;
     }
+
 
     @ResponseBody//如果需要返回JSON，XML或自定义mediaType内容到页面，则需要在对应的方法上加上@ResponseBody注解。
     @RequestMapping(value = "/insertUser", method = RequestMethod.POST)
@@ -84,7 +87,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteOne")
-    public Map<String,String> deleteOne(@RequestParam(name="id",required = false ) long id){
+    public Map<String,String> deleteOne(@RequestParam(name="id") long id){
         Map<String,String> map=new HashMap<>();
         userService.deleteOne(id);
         map.put("success","true");

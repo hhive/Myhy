@@ -8,6 +8,7 @@ package com.dmsoft.hyacinth.server.service;
 
 import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.entity.User;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -63,5 +64,11 @@ public interface UserService {
      List<UserDto> userList(int startRecord,int pageSize);
 
     int gettusernumber( );
+
+    List<UserDto> findAllandPage(int startRecord,int pageSize);
+
+    String getUserEamil(String loginName);
+
+
 
 }

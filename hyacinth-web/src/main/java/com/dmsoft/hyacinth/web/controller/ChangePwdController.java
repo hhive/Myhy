@@ -39,13 +39,12 @@ public class ChangePwdController {
     public String Submit(@ModelAttribute User user,
                          @RequestParam(name = "oldPassword") String oldPassword,
                          @RequestParam(name = "newPassword") String newPassword,
-                         String username,
                          HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        username = (String) session.getAttribute("username");
+        String username = (String) session.getAttribute("username");
         if (userService.validateUser(username, oldPassword) != null) {
             if (oldPassword.equals(newPassword) != true) {
                 userService.changePassword(username, oldPassword, newPassword);

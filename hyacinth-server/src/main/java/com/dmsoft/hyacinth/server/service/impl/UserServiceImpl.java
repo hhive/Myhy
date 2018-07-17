@@ -13,8 +13,12 @@ import com.dmsoft.hyacinth.server.service.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import javax.swing.JOptionPane;
+
 
 import java.util.List;
 
@@ -65,7 +69,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public   void update(long id,String code,String username,String name,String salt,String password,String email){
-       System.out.println("888888888888888888");
         userDao.update(id,code,username, name,salt,password, email);
     }
 
@@ -118,4 +121,30 @@ public class UserServiceImpl implements UserService {
         System.out.println(userDao.gettstunumber());
         return userDao.gettstunumber();
     }
+
+    public List<UserDto> findAllandPage (int startRecord,int pageSize){
+
+        Pageable pageable = new PageRequest(0, pageSize, Sort.Direction.ASC, "id");
+        Page<User> userPage = userDao.findAll(pageable);
+        System.out.println(userPage);
+       // List<UserDto> userList = userPage.getContent();
+        List<UserDto> list = Lists.newArrayList();
+
+        userPage.forEach(entity -> {
+            UserDto dto = new UserDto();
+            BeanUtils.copyProperties(entity, dto);
+            list.add(dto);
+        });
+        System.out.println(list);
+        return list;
+
+    }
+
+    public String getUserEamil(String loginName){
+        String userEmail=userDao.findByLoginName(loginName).getEmail();
+        return  userEmail;
+    }
+
+
+
 }
