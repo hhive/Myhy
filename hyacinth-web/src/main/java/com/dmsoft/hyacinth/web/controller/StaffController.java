@@ -7,23 +7,23 @@
 package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dto.StaffDto;
+import com.dmsoft.hyacinth.server.entity.Staff;
+import com.dmsoft.hyacinth.server.entity.User;
 import com.dmsoft.hyacinth.server.service.StaffService;
+import com.dmsoft.hyacinth.server.service.UserService;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang.NullArgumentException;
-import org.apache.commons.lang.StringUtils;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.*;
 import java.util.List;
-import java.util.zip.ZipOutputStream;
 
 @Controller
 @RequestMapping(value = "/staff")
 public class StaffController {
+
 
     @Autowired
     private StaffService staffService;
@@ -33,23 +33,23 @@ public class StaffController {
         return "views/staff/staffsearch";
     }
 
-
     @ResponseBody
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all")
     public List<StaffDto> findAll() {
         List<StaffDto> list = staffService.findAll();
         return list;
     }
     @RequestMapping(value = "/search1",method = RequestMethod.GET)
-    public String search1(@RequestParam(value = "message")String msg, HttpServletRequest request){
+    public String search1(@RequestParam(value = "message")String msg,HttpServletRequest request){
         HttpSession session = request.getSession(true);
         if(msg=="") session.setAttribute("message",null);
         else session.setAttribute("message", msg);
         System.out.print(msg);
         return "views/staff/staffsearch";
     }
+
     @ResponseBody
-    @RequestMapping(value = "/search",method = RequestMethod.GET)
+    @RequestMapping(value = "/search",method = RequestMethod.POST)
     //public StaffDto search(HttpServletRequest session){
     public List<StaffDto> search( HttpServletRequest request){
         HttpSession session = request.getSession(true);
@@ -68,5 +68,26 @@ public class StaffController {
             }
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value ="/print",method = RequestMethod.POST)
+    public StaffDto findcheckbox(@RequestParam(value = "id")String msg){
+        System.out.println(Long.parseLong(msg));
+        StaffDto staff = staffService.findById(Long.parseLong(msg));
+
+        return staff;
+    }
+
+    @ResponseBody
+    @RequestMapping(value ="/show",method = RequestMethod.POST)
+    public void showMessage(@RequestParam(value = "msg")String[] msg){
+        int i = msg.length;
+        int m = 0;
+        for (;m<i;m++){
+            System.out.println (msg[m]);
+        }
+
+}
+
 
 }
