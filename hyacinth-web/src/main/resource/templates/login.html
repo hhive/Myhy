@@ -122,7 +122,7 @@
     <div class="row row-center vertical-center">
         <div class="well">
             <h5 class="h5-bold" align="left">登录</h5>
-            <form th:action="@{/login}" method="post">
+            <form action="" method="get">
                 <div class="inner-addon left-addon">
                     <img src="../static/images/icon_userid.png"/>
                     <input type="text" class="form-control" id="username" name="username" placeholder="请输入工号"/>
@@ -131,7 +131,7 @@
                     <img src="../static/images/icon_password.png"/>
                     <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码"/>
                 </div>
-                <button type="submit" class="btn" onclick="login()">登录</button>
+                <button type="button" class="btn" onclick="login()">登录</button>
             </form>
 
             <div class="table-title" style="margin-top: 40px">
@@ -167,6 +167,13 @@
         humane.log(msg);
         showErrorMsg(msg);
     }
+</script>
+<script language="javascript">
+    //防止页面后退
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+    });
 </script>
 </body>
 </html>

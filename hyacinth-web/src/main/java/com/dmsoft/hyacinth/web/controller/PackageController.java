@@ -1,92 +1,53 @@
 package com.dmsoft.hyacinth.web.controller;
 
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
-import org.apache.commons.lang.NullArgumentException;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.File;
 
 
-
-
-import java.io.*;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-
 public class PackageController {
 
-    public static void zipFilesAndEncrypt(String srcFileName, String zipFileName, String password) {
-        ZipOutputStream outputStream = null;
-        InputStream inputStream = null;
-        if (StringUtils.isEmpty(srcFileName) || StringUtils.isEmpty(zipFileName)) {
-            throw new NullArgumentException("待压缩文件或者压缩文件名");
-        }
+    public static void zipFilesAndEncrypt(String addFileName, String zipFile, String password) {
         try {
-            File srcFile = new File(srcFileName);
-            File[] files = new File[0];
-            if (srcFile.isDirectory()) {
-                files = srcFile.listFiles();
-            } else {
-                files = new File[1];
-                files[0] = srcFile;
-            }
-            outputStream = new ZipOutputStream(new FileOutputStream(new File(zipFileName)));
+            //创建压缩文件
+            ZipFile respFile = new ZipFile(zipFile);
+            File addFile = new File(addFileName);
+
+            //设置压缩文件参数
             ZipParameters parameters = new ZipParameters();
+            //设置压缩方法
             parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
+
+            //设置压缩级别
+            //DEFLATE_LEVEL_FASTEST     - Lowest compression level but higher speed of compression
+            //DEFLATE_LEVEL_FAST        - Low compression level but higher speed of compression
+            //DEFLATE_LEVEL_NORMAL  - Optimal balance between compression level/speed
+            //DEFLATE_LEVEL_MAXIMUM     - High compression level with a compromise of speed
+            //DEFLATE_LEVEL_ULTRA       - Highest compression level but low speed
             parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-            if (!StringUtils.isEmpty(password)) {
-                parameters.setEncryptFiles(true);
-                parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
-                parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
-                parameters.setPassword(password);
-            }
 
+            //设置压缩文件加密
+            parameters.setEncryptFiles(true);
 
-            int fileNums = files.length;
-            for (int i = 0; i < fileNums; i++) {
-                File file = (File) files[i];
-                outputStream.putNextEntry(new ZipEntry(file.getName()));
-                if (file.isDirectory()) {
-                    outputStream.closeEntry();
-                    continue;
-                }
+            //设置加密方法
+            parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
 
-                inputStream = new FileInputStream(file);
-                byte[] readBuff = new byte[4096];
-                int readLen = -1;
+            //设置aes加密强度
+            parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
 
-                while ((readLen = inputStream.read(readBuff)) != -1) {
-                    outputStream.write(readBuff, 0, readLen);
-                }
+            //设置密码
+            parameters.setPassword(password);
 
-                outputStream.closeEntry();
-                inputStream.close();
-            }
+            //添加文件到压缩文件
+            respFile.addFile(addFile, parameters);
 
-            outputStream.finish();
-        } catch (Exception e) {
+        } catch (ZipException e) {
             e.printStackTrace();
-            System.out.print("文件压缩出错");
-        } finally {
-            if (outputStream != null) {
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.print("压缩文件输出错误");
-                }
-            }
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.print("压缩文件错误");
-                }
-            }
         }
     }
+
 }
+

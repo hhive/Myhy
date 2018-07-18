@@ -1,3 +1,9 @@
+/*
+ *
+ *  * Copyright (c) 2018. For DMSoft Group.
+ *
+ */
+
 var staffs = function () {
     var dt_staffList;
     // var startTimeValue;
@@ -37,7 +43,7 @@ var staffs = function () {
             //     return params;
             // };
 
-            dt_staffList = $("#dt_StaffList").DataTable({
+            dt_staffList = $("#dt_staffList").DataTable({
                 //"paging": true,
                 // "iDisplayLength": 5, //默认每页数量
                 //"bPaginate": true, //翻页功能
@@ -56,7 +62,7 @@ var staffs = function () {
                 //   "destroy": true,
                 //   "retrieve":true,
                 "ajax": {
-                    "url": '/user/all',
+                    "url": '/staff/all',
                     "type": "POST",
                     // "data":{"message":"DM12345"},
                     "dataSrc": function (data) {
@@ -65,17 +71,19 @@ var staffs = function () {
                     "error": function (e) {
                         console.log(e.status + "  :status");
                         if (e.status == 401 || e.status == 500 || e.status == 404) {
+                            //TODO
                         }
                     }
                 },
                 "columns": [
                     {"data": "id"},
                     {"data": "code"},
-                    {"data": "loginName"},
                     {"data": "name"},
-                    {"data":"salt"},
-                    {"data": "password"},
+                    {"data": "position"},
+                    {"data":"department"},
+                    {"data": "phone"},
                     {"data": "email"},
+                    {"data":"emdate"}
                 ],
                 "columnDefs": [
                     {
@@ -123,13 +131,13 @@ var staffs = function () {
                         columns : settings.colums,
                         columnDefs : settings.columsdefs,
                     };
+                    return options;
                 },
             });
         }
     };
 
 }();
-
 $(function () {
     $("#change").click(function(){
         var val = $('input:radio[name="onDutyToId"]:checked').val();
@@ -139,146 +147,17 @@ $(function () {
         }
         else {
             $.ajax({
-                url : "/user/print",
+                url : "/staff/print",
                 type : "post",
                 data : {"id":val},
                 dataType : "json",
                 success: function(data){
-                    $('#id').val(data.id);
-                    $('#code').val(data.code);
-                    $('#loginName').val(data.loginName);
-                    $('#name').val( data.name);
-                    $('#salt').val(data.salt);
-                    $('#password').val(data.password);
-                    $('#email').val(data.email);
-
+                    alert (data.name);
                 },
                 error: function () {
                     alert("error");
                 }
             });
-
-            var doc=document;
-            var Back=doc.getElementById('black'),
-                DialogBox=doc.getElementById('dialogBox'),
-                DialogClose=DialogBox.getElementsByClassName('dialog_close')[0];
-            //显示遮罩层
-            Back.style.display='block';
-            //显示弹出窗口
-            DialogBox.style.display='block';
-            DialogClose.onclick=function () {
-                //隐藏遮罩层
-                Back.style.display='none';
-                //显示弹出窗口
-                DialogBox.style.display='none';
-            }
-            Back.onclick=function () {
-                //隐藏遮罩层
-                Back.style.display='none';
-                //显示弹出窗口
-                DialogBox.style.display='none';
-            }
         }
     })
 });
-
-
-function modify(){
-    var id = $("#id").val();
-    var code = $("#code").val();
-    var loginName = $("#loginName").val();
-    var name = $("#name").val();
-    var salt = $("#salt").val();
-    var password = $("#password").val();
-    var email = $("#email").val();
-    $.ajax({
-        type : "get",
-        url : "/user/updateUser",
-        data :{"id": id,"code": code,"loginName":loginName,"name":name,"salt":salt,"password":password,"email":email},
-        async: false,
-        success : function (data) {
-            alert("修改成功");
-            window.parent.location.reload();
-            parent.layer.closeAll('dialogBox');
-        },
-        error : function () {
-            alert("修改失败");
-        }
-    });
-}
-
-$(function () {
-    $("#delete").click(function(){
-        var val = $('input:radio[name="onDutyToId"]:checked').val();
-        if(val == null){
-            alert ("请选中要删除的用户");
-        }
-        else{
-            $.ajax({
-                url : "/user/deleteOne",
-                type : "post",
-                data : {"id":val},
-                success : function () {
-                    alert ("删除成功");
-                    window.parent.location.reload();
-                },
-                error : function () {
-                    alert ("删除失败");
-                }
-            });
-        }
-    });
-});
-
-$(function(){
-    $("#create").click(function () {
-        var doc=document;
-        var Back=doc.getElementById('black'),
-            DialogBox=doc.getElementById('new_dialogBox'),
-            DialogClose=DialogBox.getElementsByClassName('dialog_close')[0];
-        //显示遮罩层
-        Back.style.display='block';
-        //显示弹出窗口
-        DialogBox.style.display='block';
-        DialogClose.onclick=function () {
-            //隐藏遮罩层
-            Back.style.display='none';
-            //显示弹出窗口
-            DialogBox.style.display='none';
-        }
-        Back.onclick=function () {
-            //隐藏遮罩层
-            Back.style.display='none';
-            //显示弹出窗口
-            DialogBox.style.display='none';
-        }
-    })
-});
-
-function insertUser() {
-    var code = $("#new_code").val();
-    var loginName = $("#new_loginName").val();
-    var name = $("#new_name").val();
-    var salt = $("#new_salt").val();
-    var password = $("#new_password").val();
-    var email = $("#new_email").val();
-    $.ajax({
-        url : "/user/insertUser",
-        type :"post",
-        data : {
-            "code" : code,
-            "loginName" : loginName,
-            "name" : name,
-            "salt" : salt,
-            "password" : password,
-            "email" : email,
-        },
-        success : function () {
-          alert ("创建新用户成功");
-        },
-        error : function () {
-            alert ("创建新用户失败");
-        }
-    });
-}
-

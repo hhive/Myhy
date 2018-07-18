@@ -16,12 +16,12 @@ public class HistoryController {
     private LogService logService;
 
     @RequestMapping(value = "test")
-    public void packagehistory(){
+    public void packagehistory(String code){
         Date date=new Date();
-        logService.insert(null,date,"user","打包图片");
+        logService.insert(null,date,"user","打包"+code+"的图片");
     }
-    public  void sendhistory(){
+    public  void sendhistory(String code){
         Date date=new Date();
-        logService.insert(null,date,"user","发送邮件");
+        logService.insert(null,date,"user","发送"+code+"的邮件");
     }
 }

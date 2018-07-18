@@ -11,7 +11,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -34,8 +37,9 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
      * @param loginName login name.
      * @return User.
      */
-    User findByLoginName(String loginName);
 
+    @Query("from User where loginName=:loginName")
+    User findByLoginName(@Param("loginName") String loginName);
     /**
      * find user by loginName and password
      *
@@ -47,7 +51,36 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
     User findByLoginNameAndPassword(String loginName, String password);
 
     @Modifying
-    @Transactional 
+    @Transactional
     @Query("update User user set user.password = ?2 where user.loginName = ?1 and password = ?3")
-    void update(String userName, String newPwd,String oldPwd);
+    void updatePwd(String userName, String newPwd,String oldPwd);
+
+    @Modifying
+    @Transactional
+    @Query(value = "insert into t_user (code,loginName,name,salt,password,email) values(?1,?2,?3,?4,?5,?6)",nativeQuery = true)
+    void insert(String code,String username,String name,String salt,String password,String email);
+
+    @Modifying
+    @Transactional
+    @Query("update User user set user.code=?2,user.loginName=?3,user.name=?4,user.salt=?5,user.password = ?6,user.email=?7 where user.id = ?1")
+    void update(long id,String code,String username,String name,String salt,String password,String email);
+
+
+    @Modifying
+    @Transactional
+    @Query("delete from User where id=?1")
+    void deleteOne(long id);
+
+    @Query("from User where code = ?1")
+    User findUserByCode(String code);
+
+    //分页展示
+    @Query(value=" select*from USER limit 1,25",nativeQuery = true)
+     List<User> UserList(int startRecord, int pageSize);
+
+    //用户表中数据记录数
+    @Query(value = "select count(*) from t_user",nativeQuery = true)
+    int gettstunumber( );
+
+    User findByCode(String code);
 }

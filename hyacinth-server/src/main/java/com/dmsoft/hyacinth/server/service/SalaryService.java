@@ -8,7 +8,6 @@ import java.util.List;
 public interface SalaryService {
     SalaryDto findbycode(String code);
     void deleteall();
-    void findall();
     void save(SalaryDto salaryDto);
     void insert(Long va1,String va2,String va3,float va4,float va5,float va6,float va7,float va8,float va9,float va10
             ,float va11,float va12,float va13,float va14,float va15,float va16,float va17,float va18,float va19
