@@ -39,7 +39,7 @@ public class LoginController {
 
     }
     @ResponseBody
-    @RequestMapping(value = "/login",method =RequestMethod.GET)
+    @RequestMapping(value = "/login",method =RequestMethod.POST)
     public User login(@RequestParam(value="Username",required = false) String username,@RequestParam(value = "Password",required = false) String password){
         User user = userService.validateUser(username,password);
         if(user!= null){

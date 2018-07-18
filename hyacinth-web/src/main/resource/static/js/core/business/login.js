@@ -6,7 +6,7 @@ function login(){
     var password = $("#password").val();
 
     $.ajax({
-       type : "get",
+       type : "POST",
         url : "/login",
         data :{"Username": username,"Password": password},
         async: false,

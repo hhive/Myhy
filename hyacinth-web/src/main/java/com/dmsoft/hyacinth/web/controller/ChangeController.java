@@ -33,8 +33,8 @@ public class ChangeController {
             SalaryDto sa = salaryService.findbycode("DM12345");
             exportImage(sa);
             PackageController packageController=new PackageController();
-            packageController.zipFilesAndEncrypt("d:/"+sa.getName()+".jpg","d:/"+sa.getName()+".zip",sa.getCode());
-            File file = new File("d:/"+sa.getName()+".jpg");
+            packageController.zipFilesAndEncrypt("d:/"+sa.getName()+".bmp","d:/"+sa.getName()+".zip",sa.getCode());
+            File file = new File("d:/"+sa.getName()+".bmp");
             file.delete();
             historyController.packagehistory();
         return "index";
