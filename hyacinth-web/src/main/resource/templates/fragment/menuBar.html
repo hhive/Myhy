@@ -31,11 +31,16 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/home">Home</a></li>
-                <li><a href="/staff/list">Staff</a></li>
-                <li><a href="/log/list">LogHistory</a> </li>
+                <li class="active"><a href="/home">
+                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                    Home</a></li>
+                <li><a href="/staff/list">
+                    <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                    Staff</a></li>
                 <li class="dropdown">
-                    <a class="dropdown-togglet" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">Import</a>
+                    <a class="dropdown-togglet" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">
+                        <span class="glyphicon glyphicon-export" aria-hidden="true"></span>
+                        Input</a>
                     <ul class="dropdown-menu">
                         <li>
                             <form class="" action="/import/staff" method="post" enctype="multipart/form-data">
@@ -51,29 +56,38 @@
                         </li>
                     </ul>
                 </li>
-
-
             </ul>
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="message" placeholder="saerch">
+                    <input type="text" class="form-control" placeholder="{Search}">
                 </div>
-                <button type="button" class="btn btn-default">Submit</button>
-                <button type="button" onclick="Search()" class="btn btn-default">Submit</button>
+                <button type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    Search</button>
             </form>
             <form class="navbar-form navbar-left">
             </form>
-
             <ul class=" nav navbar-nav navbar-right">
                 <li class="dropdown" >
-                    <a class="dropdown-togglet" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">user</a>
-                        <ul class="dropdown-menu">
-                            <li ><a href="#">changPassword</a> </li>
-                            <li ><a href="/logout">security logout</a> </li>
-                        </ul>
+                    <a class="dropdown-togglet" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        user
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ><a href="#">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                            changPassword</a> </li>
+                        <li><a href="#">
+                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                            user manage
+                        </a> </li>
+                        <li role="separator" class="divider"></li>
+                        <li ><a href="/logout">
+                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                            security logout</a> </li>
+                    </ul>
                 </li>
             </ul>
-
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
