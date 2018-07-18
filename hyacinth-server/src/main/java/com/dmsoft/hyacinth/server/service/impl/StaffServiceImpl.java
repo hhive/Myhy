@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,6 +44,15 @@ public  class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public StaffDto findcode(String code) {
+        Staff entity = staffDao.findByCode(code);
+        StaffDto dto = new StaffDto();
+        BeanUtils.copyProperties(entity, dto);
+
+        return dto;
+    }
+
+    @Override
     public StaffDto findById(Long id) {
         Staff entity = staffDao.findById(id);
         StaffDto dto = new StaffDto();
@@ -50,6 +60,21 @@ public  class StaffServiceImpl implements StaffService {
 
         return dto;
     }
+
+
+
+    @Override
+    public List<StaffDto> findByCode(String code) {
+        Staff entity = staffDao.findByCode(code);
+
+        List<StaffDto> list = Lists.newArrayList();
+        StaffDto dto = new StaffDto();
+        if(!(entity==null))
+        {BeanUtils.copyProperties(entity, dto);list.add(dto);}
+        else return null;
+        return list;
+    }
+
 
     @Override
     public List<StaffDto> findByName(String msg) {
@@ -62,19 +87,6 @@ public  class StaffServiceImpl implements StaffService {
             list.add(dto);
         });
 
-        return list;
-    }
-
-
-    @Override
-    public List<StaffDto> findByCode(String code) {
-        Staff entity = staffDao.findByCode(code);
-
-        List<StaffDto> list = Lists.newArrayList();
-        StaffDto dto = new StaffDto();
-        if(!(entity==null))
-        {BeanUtils.copyProperties(entity, dto);list.add(dto);}
-        else return null;
         return list;
     }
 

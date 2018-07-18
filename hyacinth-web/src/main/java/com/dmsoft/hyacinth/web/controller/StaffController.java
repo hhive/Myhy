@@ -44,7 +44,6 @@ public class StaffController {
         HttpSession session = request.getSession(true);
         if(msg=="") session.setAttribute("message",null);
         else session.setAttribute("message", msg);
-        System.out.print(msg);
         return "views/staff/staffsearch";
     }
 
@@ -74,9 +73,19 @@ public class StaffController {
     public StaffDto findcheckbox(@RequestParam(value = "id")String msg){
         System.out.println(Long.parseLong(msg));
         StaffDto staff = staffService.findById(Long.parseLong(msg));
-
         return staff;
     }
+
+    @ResponseBody
+    @RequestMapping(value ="/show",method = RequestMethod.POST)
+    public void showMessage(@RequestParam(value = "msg")String[] msg){
+        int i = msg.length;
+        int m = 0;
+        for (;m<i;m++){
+            System.out.println (msg[m]);
+        }
+
+}
 
 
 }

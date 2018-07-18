@@ -6,7 +6,7 @@ function login(){
     var password = $("#password").val();
 
     $.ajax({
-       type : "get",
+       type : "POST",
         url : "/login",
         data :{"Username": username,"Password": password},
         async: false,
@@ -15,8 +15,7 @@ function login(){
                alert("用户名或密码错误");
            }
            else{
-               alert(data.name)
-               window.location.href="success";
+               window.location.href="http://localhost:8888/success";
 
            }
 

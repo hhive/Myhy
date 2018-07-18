@@ -8,12 +8,15 @@ import com.dmsoft.hyacinth.server.service.StaffService;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
 import java.io.*;
 import java.sql.SQLOutput;
 
@@ -28,7 +31,14 @@ public class ImportstaffController {
     private SalaryService salaryService;
     private SalaryDto salary=new SalaryDto();
     @RequestMapping(value="/staff",method = RequestMethod.POST)
-    public String importstaff(@RequestParam("upfile") MultipartFile multfile){
+    public String importstaff(@RequestParam("upfile") MultipartFile multfile, HttpServletResponse response)throws IOException{
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out =response.getWriter();
+        if (!isCsv(multfile.getOriginalFilename())) {
+            out.print("<script language=\"javascript\">alert('不是csv格式的文件');window.location.href='/staff/list'</script>");
+            return "views/staff/staffsearch";
+            //throw new RuntimeException(multfile.getOriginalFilename() + "不是csv格式的文件");
+        }
         BufferedReader bReader=null;
         try {
             File file = null;
@@ -38,6 +48,11 @@ public class ImportstaffController {
                 file.deleteOnExit();
             }catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (!validateFileExit(file.getPath())) {
+                out.print("<script language=\"javascript\">alert('文件不存在');window.location.href='/staff/list'</script>");
+                return "views/staff/staffsearch";
+                //throw new IOException(file.getPath() + "文件不存在");
             }
 
             //CommonsMultipartFile cf = (CommonsMultipartFile)multfile;
@@ -64,8 +79,17 @@ public class ImportstaffController {
         }
     }
     @RequestMapping(value = "salary",method = RequestMethod.POST)
-    public String importsalary(@RequestParam("upfile2") MultipartFile multfile){
-
+    public String importsalary(@RequestParam("upfile2") MultipartFile multfile,HttpServletResponse response)throws IOException{
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out =response.getWriter();
+        if (!isCsv(multfile.getOriginalFilename())) {
+            out.print("<script language=\"javascript\">alert('不是csv格式的文件');window.location.href='/staff/list'</script>");
+            return "views/staff/staffsearch";
+            //throw new RuntimeException(multfile.getOriginalFilename() + "不是csv格式的文件");
+        }
+        if (!isCsv(multfile.getOriginalFilename())) {
+            throw new RuntimeException(multfile.getOriginalFilename() + "不是csv格式的文件");
+        }
         BufferedReader bReader=null;
         long i=1;
         try {
@@ -77,6 +101,10 @@ public class ImportstaffController {
             }catch (IOException e) {
                 e.printStackTrace();
             }
+            if (!validateFileExit(file.getPath())) {
+                throw new IOException(file.getPath() + "文件不存在");
+            }
+
             // File file = new File("C:\\Users\\soft\\Desktop\\薪资模板.csv");
             bReader = new BufferedReader(new InputStreamReader(new FileInputStream(file),"gbk"));
         }catch (FileNotFoundException e){e.printStackTrace();}
@@ -134,5 +162,16 @@ public class ImportstaffController {
         }finally {
             return "views/staff/staffsearch";
         }
+    }
+    public static boolean isCsv(String filePath) {
+        return filePath.matches("^.+\\.(?i)(csv)$");
+    }
+
+    public static boolean validateFileExit(String filePath) {
+        File file = new File(filePath);
+        if (file == null || !file.exists()) {
+            return false;
+        }
+        return true;
     }
 }
