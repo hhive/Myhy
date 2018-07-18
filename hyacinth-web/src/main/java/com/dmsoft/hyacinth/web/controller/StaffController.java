@@ -78,5 +78,16 @@ public class StaffController {
         return staff;
     }
 
+    @ResponseBody
+    @RequestMapping(value ="/show",method = RequestMethod.POST)
+    public void showMessage(@RequestParam(value = "msg")String[] msg){
+        int i = msg.length;
+        int m = 0;
+        for (;m<i;m++){
+            System.out.println (msg[m]);
+        }
+
+}
+
 
 }

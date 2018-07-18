@@ -88,7 +88,7 @@ var staffs = function () {
               "columnDefs": [
                     {
                         "render": function ( data, type, row ) {
-                            return "<input type='radio' name='onDutyToId'  value='" + data + "'>";
+                            return "<input type='checkbox' name='onDutyToId'  value='" + data+ "'>";
                         },
                         "targets": 0 //指定渲染列：第一列(渲染第一列为单选框，data自动匹配为  {"data":"id"}中数据）
                     },
@@ -137,7 +137,7 @@ var staffs = function () {
     };
 
 }();
-$(function () {
+/*$(function () {
     $("#change").click(function(){
         var val = $('input:radio[name="onDutyToId"]:checked').val();
         if(val==null){
@@ -183,4 +183,34 @@ $(function () {
             }
         }
     })
+});*/
+$(function(){
+    $("#send").click(function(){
+            var valList = [];
+            var i=0;
+            $.each($(":checkbox:checked"),function(){
+                valList[i] = $(this).val();
+                i++;
+            });
+        if(valList == null){
+            alert ("请选中员工");
+            return false;
+        }
+        else {
+            $.ajax({
+                url : "/staff/show",
+                type: "post",
+                data:{msg:valList},
+                traditional: true,
+                success: function () {
+                    alert("发送成功");
+                },
+                error:function () {
+                    alert("发送失败");
+                }
+            })
+        }
+    }
+    )
 });
+
