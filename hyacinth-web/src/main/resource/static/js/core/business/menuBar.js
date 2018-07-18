@@ -27,6 +27,8 @@ var menuBar = function () {
                 $(id + " a").css('font-weight', 'bold');
                 $(id + " a").css('color', '#222222');
             }
+
+            //var username = "<%=Session("username").ToString()%>";
         }
     }
 };
@@ -66,3 +68,5 @@ function Search(){
     //     }
     // });
 }
+
+

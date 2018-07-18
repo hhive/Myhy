@@ -28,10 +28,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    @Override
-    public UserDto findUserById(Long id) {
-        return null;
-    }
 
     @Override
     public List<UserDto> findAll() {
@@ -44,6 +40,15 @@ public class UserServiceImpl implements UserService {
             list.add(dto);
         });
         return list;
+    }
+
+    @Override
+    public UserDto findUserById(Long id) {
+        User entity = userDao.findById(id);
+        UserDto dto = new UserDto();
+        BeanUtils.copyProperties(entity, dto);
+
+        return dto;
     }
 
     @Override

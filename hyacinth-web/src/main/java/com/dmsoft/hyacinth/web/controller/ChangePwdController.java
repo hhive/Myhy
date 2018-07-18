@@ -45,10 +45,11 @@ public class ChangePwdController {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String username = (String) session.getAttribute("username");
+        System.out.println(username);
         if (userService.validateUser(username, oldPassword) != null) {
             if (oldPassword.equals(newPassword) != true) {
                 userService.changePassword(username, oldPassword, newPassword);
-                out.print("<script language=\"javascript\">alert('修改密码成功！');window.location.href='/index1'</script>");
+                out.print("<script language=\"javascript\">alert('修改密码成功！');window.location.href='/success'</script>");
                 return "index";
             } else {
                 out.print("<script language=\"javascript\">alert('新密码与旧密码重复！');window.location.href='/user/pwd'</script>");

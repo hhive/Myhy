@@ -30,7 +30,6 @@ var staffs = function () {
                     "error": function (e) {
                         console.log(e.status + "  :status");
                         if (e.status == 401 || e.status == 500 || e.status == 404) {
-                            //TODO
                         }
                     }
                 },
