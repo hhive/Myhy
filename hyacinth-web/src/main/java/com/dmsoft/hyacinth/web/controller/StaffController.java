@@ -7,15 +7,16 @@
 package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dto.StaffDto;
+import com.dmsoft.hyacinth.server.entity.Staff;
+import com.dmsoft.hyacinth.server.entity.User;
 import com.dmsoft.hyacinth.server.service.StaffService;
 import com.dmsoft.hyacinth.server.service.UserService;
 import com.google.common.collect.Lists;
-import org.hibernate.annotations.Parameter;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -23,9 +24,9 @@ import java.util.List;
 @RequestMapping(value = "/staff")
 public class StaffController {
 
+
     @Autowired
     private StaffService staffService;
-    private UserService userService;
 
     @RequestMapping(value = "/list")
     public String all() {
@@ -33,46 +34,23 @@ public class StaffController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all")
     public List<StaffDto> findAll() {
         List<StaffDto> list = staffService.findAll();
         return list;
     }
-
-//    @RequestMapping(value = "/search")
-//    public String search(@RequestParam("searchmsg")String msg){
-//        StaffDto staffDto;
-//        staffDto=staffService.findByCode(msg);
-//        if(staffDto==null){
-//            staffDto=staffService.findByName(msg);
-//            if(staffDto==null) return null;
-//            else return  "index";
-//        }else  return "login";
-//    }
-
-    @RequestMapping(value = "/setEmail")
-    public String setEmail(HttpServletRequest request
-                           ){
-       // @RequestParam(name = "email") String email
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        System.out.println(username);
-        String userEmail=userService.getUserEamil(username);
-        System.out.println(userEmail);
-        return "/index1";
-    }
-    @ResponseBody
-    @RequestMapping(value ="/print",method = RequestMethod.POST)
-    public StaffDto findcheckbox(@RequestParam(value = "id")String msg){
-        System.out.println(Long.parseLong(msg));
-        StaffDto staff = staffService.findById(Long.parseLong(msg));
-
-        return staff;
+    @RequestMapping(value = "/search1",method = RequestMethod.GET)
+    public String search1(@RequestParam(value = "message")String msg,HttpServletRequest request){
+        HttpSession session = request.getSession(true);
+        if(msg=="") session.setAttribute("message",null);
+        else session.setAttribute("message", msg);
+        System.out.print(msg);
+        return "views/staff/staffsearch";
     }
 
     @ResponseBody
     @RequestMapping(value = "/search",method = RequestMethod.POST)
-//public StaffDto search(HttpServletRequest session){
+    //public StaffDto search(HttpServletRequest session){
     public List<StaffDto> search( HttpServletRequest request){
         HttpSession session = request.getSession(true);
         String msg = (String) session.getAttribute("message");
@@ -90,4 +68,15 @@ public class StaffController {
             }
         }
     }
+
+    @ResponseBody
+    @RequestMapping(value ="/print",method = RequestMethod.POST)
+    public StaffDto findcheckbox(@RequestParam(value = "id")String msg){
+        System.out.println(Long.parseLong(msg));
+        StaffDto staff = staffService.findById(Long.parseLong(msg));
+
+        return staff;
+    }
+
+
 }

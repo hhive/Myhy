@@ -36,7 +36,7 @@ function importCsv(){
     formData.append("file",$("#upfile")[0].files[0]);
     formData.append("name",name);
     $.ajax({
-        url :"/index",
+        url : "/index",
         type : 'POST',
         async : false ,
         data : "json",
@@ -46,4 +46,23 @@ function importCsv(){
         }
 
     });
+}
+function Search(){
+    var imformation = $("#message").val();
+    window.location.href="http://localhost:8888/staff/search1?message="+imformation;
+    //window.location.href="http://localhost:8888/staff/search1?message="+imformation;
+    // $.ajax({
+    //     url : "/staff/search",
+    //     type : 'POST',
+    //     data : {"message":imformation},
+    //     dataType : "json",
+    //     async:false,
+    //     success:function(data){
+    //        alert(data.name);
+    //       // window.location.href="http://localhost:8888/staff/search1?data="+data.name;
+    //     },
+    //     error:function(){
+    //            alert("error");
+    //     }
+    // });
 }

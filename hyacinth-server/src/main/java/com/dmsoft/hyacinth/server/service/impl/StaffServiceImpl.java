@@ -21,14 +21,15 @@ import java.util.List;
  * Created by Peter Li on 2017/12/15.
  */
 @Service
-public class StaffServiceImpl implements StaffService {
+public  class StaffServiceImpl implements StaffService {
 
     @Autowired
     private StaffDao staffDao;
 
     @Override
     public List<StaffDto> findAll() {
-        Iterable<Staff> entityList = staffDao.findAll();
+        Iterable<Staff> entityList = staffDao.
+                findAll();
 
         List<StaffDto> list = Lists.newArrayList();
 
@@ -50,39 +51,9 @@ public class StaffServiceImpl implements StaffService {
         return dto;
     }
 
-//    @Override
-//    public StaffDto findByCode(String code) {
-//        Staff entity = staffDao.findByCode(code);
-//
-//        StaffDto dto = new StaffDto();
-//        BeanUtils.copyProperties(entity, dto);
-//
-//        return dto;
-//    }
-    @Override
-    public void insert(long id,String code,String name,String position,String department,String phone,String email,String emdate){
-        staffDao.insert(id, code, name, position, department, phone, email, emdate);
-    }
-
-    @Override
-    public void deltetall() {
-        staffDao.deleteAll();
-    }
-
-//    @Override
-//    public StaffDto findByName(String msg) {
-//        Staff entity = staffDao.findByName(msg);
-//
-//        StaffDto dto = new StaffDto();
-//        BeanUtils.copyProperties(entity, dto);
-//
-//        return dto;
-//    }
-
     @Override
     public List<StaffDto> findByName(String msg) {
         Iterable<Staff> entityList = staffDao.findByName(msg);
-
         List<StaffDto> list = Lists.newArrayList();
 
         entityList.forEach(entity -> {
@@ -93,6 +64,7 @@ public class StaffServiceImpl implements StaffService {
 
         return list;
     }
+
 
     @Override
     public List<StaffDto> findByCode(String code) {
@@ -105,4 +77,15 @@ public class StaffServiceImpl implements StaffService {
         else return null;
         return list;
     }
+
+    @Override
+    public void insert(long id,String code,String name,String position,String department,String phone,String email,String emdate){
+        staffDao.insert(id, code, name, position, department, phone, email, emdate);
+    }
+
+    @Override
+    public void deltetall() {
+        staffDao.deleteAll();
+    }
+
 }
