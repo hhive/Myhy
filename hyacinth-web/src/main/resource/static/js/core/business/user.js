@@ -56,7 +56,7 @@ var user = function () {
                 //   "destroy": true,
                 //   "retrieve":true,
                 "ajax": {
-                    "url": '/staff/search',
+                    "url": '/user/all',
                     "type": "POST",
                     // "data":{"message":"DM12345"},
                     "dataSrc": function (data) {

@@ -22,7 +22,7 @@ public class ExportImage {
                 // Thread.sleep(5000);
                 imageGenerator.getBufferedImage();
                 //Thread.sleep(8000);
-                String path = "d://"+receiver+".jpg";
+                String path = "d://"+receiver+".bmp";
                 imageGenerator.saveAsImage(path);
                 return path;
             } catch (Exception e) {

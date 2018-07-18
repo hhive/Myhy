@@ -44,6 +44,15 @@ public  class StaffServiceImpl implements StaffService {
     }
 
     @Override
+    public StaffDto findcode(String code) {
+        Staff entity = staffDao.findByCode(code);
+        StaffDto dto = new StaffDto();
+        BeanUtils.copyProperties(entity, dto);
+
+        return dto;
+    }
+
+    @Override
     public StaffDto findById(Long id) {
         Staff entity = staffDao.findById(id);
         StaffDto dto = new StaffDto();
@@ -65,7 +74,6 @@ public  class StaffServiceImpl implements StaffService {
         else return null;
         return list;
     }
-
 
     @Override
     public List<StaffDto> findByName(String msg) {
