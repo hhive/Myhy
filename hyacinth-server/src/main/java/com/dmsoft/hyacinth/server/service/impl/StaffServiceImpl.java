@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,19 +52,6 @@ public  class StaffServiceImpl implements StaffService {
         return dto;
     }
 
-    @Override
-    public List<StaffDto> findByName(String msg) {
-        Iterable<Staff> entityList = staffDao.findByName(msg);
-        List<StaffDto> list = Lists.newArrayList();
-
-        entityList.forEach(entity -> {
-            StaffDto dto = new StaffDto();
-            BeanUtils.copyProperties(entity, dto);
-            list.add(dto);
-        });
-
-        return list;
-    }
 
 
     @Override
@@ -75,6 +63,21 @@ public  class StaffServiceImpl implements StaffService {
         if(!(entity==null))
         {BeanUtils.copyProperties(entity, dto);list.add(dto);}
         else return null;
+        return list;
+    }
+
+
+    @Override
+    public List<StaffDto> findByName(String msg) {
+        Iterable<Staff> entityList = staffDao.findByName(msg);
+        List<StaffDto> list = Lists.newArrayList();
+
+        entityList.forEach(entity -> {
+            StaffDto dto = new StaffDto();
+            BeanUtils.copyProperties(entity, dto);
+            list.add(dto);
+        });
+
         return list;
     }
 
