@@ -65,19 +65,4 @@ public class SendemailController {
         return mv;
     }
 
-//    @RequestMapping(value = "AllEmail",method = RequestMethod.POST)
-//    public ModelAndView sendAllSalary(@RequestParam (name = "u") String[] u){
-//        for (String code:u){
-//            String name = u.getName();
-//            File file = new File("E://Email//" + name + ".zip");
-//            String to = u.getEmail();
-//            String titel = "工资信息";
-//            String content = "工资";
-//            sendEmailService.sendSalaryWithAttachment(to, titel, content, file);
-//        }
-//        ModelAndView mv = new ModelAndView();
-//        mv.addObject("modelandviewmsg", "发送成功！");
-//        mv.setViewName("views/sendEmail");
-//        return mv;
-//    }
 }
