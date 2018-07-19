@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.mail.AuthenticationFailedException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -27,15 +26,14 @@ import java.util.List;
 @Controller
 public class ChangeController {
     String isExport = null;
-
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private StaffService staffService;
     @Autowired
     private SalaryService salaryService;
     @Autowired
     HistoryController historyController;
-    @Autowired
-    EmailService emailService;
     @RequestMapping(value = "/export")
     public String export(@RequestParam("id_checked")List<String> idList,HttpServletResponse response)throws IOException{
         //List<SalaryDto> salaryDtoList=salaryService.findAll();
@@ -66,10 +64,10 @@ public class ChangeController {
         idList.forEach(id->{
             String code=staffService.findById(Long.parseLong(id)).getCode();
             SalaryDto sa = salaryService.findbycode(code);
-           exportImage(sa);
+            StaffDto st = staffService.findcode(code);
         SendemailController s=new SendemailController();
         try {
-            s.sendSalaryWithAttachment(sa.getName());
+            s.sendSalaryWithAttachment(sa.getName(),st.getEmail(),emailService.findid(Long.valueOf(1)));
         }catch (NullPointerException e){
             throw new NullPointerException("未找到工号为"+code+"的工资文件");
         }
