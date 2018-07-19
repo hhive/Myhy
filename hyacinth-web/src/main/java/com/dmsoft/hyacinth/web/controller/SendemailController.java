@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 
 @Controller
@@ -31,7 +30,7 @@ public class SendemailController {
 //    }
 
     @RequestMapping(value = "/Email")
-    public ModelAndView sendSalaryWithAttachment(String name){
+    public ModelAndView sendSalaryWithAttachment(String name) {
 //        System.out.println(name);
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 

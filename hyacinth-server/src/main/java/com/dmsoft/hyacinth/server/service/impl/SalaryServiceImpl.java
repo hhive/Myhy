@@ -22,6 +22,7 @@ public class SalaryServiceImpl implements SalaryService {
     @Override
     public SalaryDto findbycode(String code) {
         Salary entity = salaryDao.findByCode(code);
+        System.out.println(entity.getCode()+"==============================================");
         SalaryDto dto = new SalaryDto();
         if(entity==null) return null;
         BeanUtils.copyProperties(entity, dto);

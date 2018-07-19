@@ -25,14 +25,15 @@ public interface StaffDao extends PagingAndSortingRepository<Staff, Long>, JpaSp
 
 
     Staff findByCode(String code);
+    @Modifying
+    @Transactional
+    @Query(value = "select * from t_staff where code=?1     ;",nativeQuery=true)
+    Staff findcode(String code);
     List<Staff> findByName(String name);
     @Override
     void deleteAll();
 
-    @Modifying
-    @Transactional
-    @Query(value = "select * from t_staff where code=?1",nativeQuery=true)
-    Staff findcode(String code);
+
     @Modifying
     @Transactional
     @Query(value = "insert into t_staff values (?1,?2,?3,?4,?5,?6,?7,?8)",nativeQuery=true)
