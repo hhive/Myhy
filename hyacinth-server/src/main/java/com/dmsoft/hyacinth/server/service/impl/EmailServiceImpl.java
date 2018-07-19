@@ -14,15 +14,17 @@ public class EmailServiceImpl implements EmailService {
     private EmailDao emailDao;
 
     @Override
-    public EmailDto findById(Long id) {
-        Email entity=emailDao.findById(id);
+    public EmailDto findById() {
+        String id="1";
+        Email entity=emailDao.findById(Long.parseLong(id));
         EmailDto dto=new EmailDto();
         BeanUtils.copyProperties(entity, dto);
         return dto;
     }
 
     @Override
-    public void update(String email, String password) {
-        emailDao.update(email,password);
+    public void update(String email, String password,String emailtype,String post) {
+
+        emailDao.update(email,password,emailtype,post);
     }
 }

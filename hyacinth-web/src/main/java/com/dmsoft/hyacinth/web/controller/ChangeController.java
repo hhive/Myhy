@@ -42,7 +42,7 @@ public class ChangeController {
            String code=staffService.findById(Long.parseLong(id)).getCode();
             SalaryDto sa = salaryService.findbycode(code);
             if(sa==null){
-                throw new RuntimeException("未找到工号为"+code+"的工资");
+                throw new RuntimeException("未找到工号为"+code+"的工资信息");
                // out.print("<script language=\"javascript\">alert('未找到工号为"+code+"的工资');</script>");
             }
             else{
@@ -62,10 +62,15 @@ public class ChangeController {
         idList.forEach(id->{
             String code=staffService.findById(Long.parseLong(id)).getCode();
             SalaryDto sa = salaryService.findbycode(code);
-           exportImage(sa);
+//           exportImage(sa);
         SendemailController s=new SendemailController();
-        s.sendSalaryWithAttachment(sa.getName());
-        historyController.sendhistory(code);});
+        try{
+                s.sendSalaryWithAttachment(sa.getName());
+        }catch (Exception e){
+            throw new NullPointerException("未找到工号为"+code+"的工资文件");
+        }
+
+            historyController.sendhistory(code);});
         return "index";
     }
 

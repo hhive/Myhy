@@ -14,15 +14,11 @@ import java.io.PrintWriter;
 public class ChangeEmailController {
     @Autowired
     private EmailService emailService;
-    @RequestMapping(value = "/tochangeemail")
-    public String tochange(){
-        return "changeEmail";
-    }
     @RequestMapping(value = "/changeemail")
     public String change(@RequestParam(name = "newEmail")String email,@RequestParam(name = "Password")String password,
-    HttpServletResponse response)throws IOException {
+    @RequestParam(name = "type")String type,@RequestParam(name = "post")String post, HttpServletResponse response)throws IOException {
         PrintWriter out = response.getWriter();
-        emailService.update(email,password);
+        emailService.update(email,password,type,post);
         out.print("<script language=\"javascript\">alert('修改邮箱成功！');window.location.href='/success'</script>");
         return "index";
     }
