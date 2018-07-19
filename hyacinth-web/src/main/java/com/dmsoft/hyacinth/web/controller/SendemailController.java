@@ -27,7 +27,7 @@ public class SendemailController {
 //    }
 
     @RequestMapping(value = "/Email")
-    public ModelAndView sendSalaryWithAttachment(String name,String email) {
+    public ModelAndView sendSalaryWithAttachment(String name) {
 //        System.out.println(name);
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
@@ -42,9 +42,9 @@ public class SendemailController {
 
         mailSender.setJavaMailProperties(pro);
         File f=new File("d:/"+name+".zip");
-        String to =email;
+        String to = "troy.chen@cygia.com";
         String title ="工资信息";
-        String content ="last mouth "+name+" 's salary imformation";
+        String content ="工资";
             MimeMessage msg = mailSender.createMimeMessage();
             try {
 
@@ -54,7 +54,7 @@ public class SendemailController {
                 helper.setSubject(title);
                 helper.setText(content,true);   //true表示邮件有附件
                 FileSystemResource fileSystemResource = new FileSystemResource(f);
-                helper.addAttachment(name+"的工资.zip",fileSystemResource);
+                helper.addAttachment("员工工资.zip",fileSystemResource);
             } catch (Exception e) {
                 e.printStackTrace();
             }

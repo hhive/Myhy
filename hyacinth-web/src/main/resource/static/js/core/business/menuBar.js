@@ -53,5 +53,27 @@ function Search(){
     var imformation = $("#message").val();
     window.location.href="http://localhost:8888/staff/search1?message="+imformation;
 }
+function changeEmail(){
+    var doc = document;
+    var Back = doc.getElementById('black'),
+        DialogBox = doc.getElementById('dialogBox'),
+        DialogClose = DialogBox.getElementsByClassName('dialog_close')[0];
+    //显示遮罩层
+    Back.style.display = 'block';
+    //显示弹出窗口
+    DialogBox.style.display = 'block';
+    DialogClose.onclick = function () {
+        //隐藏遮罩层
+        Back.style.display = 'none';
+        //显示弹出窗口
+        DialogBox.style.display = 'none';
+    }
+    Back.onclick = function () {
+        //隐藏遮罩层
+        Back.style.display = 'none';
+        //显示弹出窗口
+        DialogBox.style.display = 'none';
+    }
+}
 
 

@@ -205,8 +205,8 @@ $(function(){
                 success: function () {
                     alert("发送成功");
                 },
-                error:function () {
-                    alert("发送失败");
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("错误信息:" + XMLHttpRequest.responseText); //获取的信息即是异常中的Message
                 }
             })
         }

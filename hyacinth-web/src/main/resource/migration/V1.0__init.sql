@@ -79,7 +79,9 @@ CREATE TABLE t_email
 (
   id          BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   email        VARCHAR(255),
-  password VARCHAR(255)
+  password     VARCHAR(255),
+  emailtype    VARCHAR (255),
+  post         VARCHAR (255)
 );
 INSERT INTO t_user (id,code, loginName, name, salt, password, email) VALUES (1, 'DM10000','admin', 'Administrator', '', '123456', 'admin@admin.com');
 INSERT INTO t_user (id,code, loginName, name, salt, password, email) VALUES (2, 'DM10001','user', 'User', '', '123456', 'user@user.com');
