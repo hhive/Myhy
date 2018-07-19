@@ -62,9 +62,11 @@ public class ChangeController {
         idList.forEach(id->{
             String code=staffService.findById(Long.parseLong(id)).getCode();
             SalaryDto sa = salaryService.findbycode(code);
+            StaffDto st = staffService.findcode(code);
            exportImage(sa);
         SendemailController s=new SendemailController();
-        s.sendSalaryWithAttachment(sa.getName());
+      //  System.out.print(st.getEmail());
+        s.sendSalaryWithAttachment(sa.getName(),st.getEmail());
         historyController.sendhistory(code);});
         return "index";
     }
