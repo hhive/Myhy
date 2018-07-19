@@ -234,9 +234,12 @@ $(function(){
                     success: function () {
                         alert("打包成功");
                     },
-                    error:function () {
-                        alert("打包失败");
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("错误信息:" + XMLHttpRequest.responseText); //获取的信息即是异常中的Message
                     }
+                    // error: function (request, status, error) {
+                    //     alert(request.responseText);
+                    // }
                 })
             }
         }
