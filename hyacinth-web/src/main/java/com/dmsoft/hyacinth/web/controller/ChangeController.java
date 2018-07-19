@@ -3,6 +3,7 @@ package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dto.SalaryDto;
 import com.dmsoft.hyacinth.server.dto.StaffDto;
+import com.dmsoft.hyacinth.server.service.EmailService;
 import com.dmsoft.hyacinth.server.service.SalaryService;
 import com.dmsoft.hyacinth.server.service.StaffService;
 import com.dmsoft.hyacinth.web.controller.ExportImage;
@@ -25,7 +26,8 @@ import java.util.List;
 @Controller
 public class ChangeController {
     String isExport = null;
-
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private StaffService staffService;
     @Autowired
@@ -62,9 +64,11 @@ public class ChangeController {
         idList.forEach(id->{
             String code=staffService.findById(Long.parseLong(id)).getCode();
             SalaryDto sa = salaryService.findbycode(code);
-           exportImage(sa);
+            StaffDto st = staffService.findcode(code);
         SendemailController s=new SendemailController();
-        s.sendSalaryWithAttachment(sa.getName());
+        s.sendSalaryWithAttachment(sa.getName(),st.getEmail(),emailService.findid(Long.valueOf(1)));
+        File file = new File("d:/"+sa.getName()+".zip");
+        file.delete();
         historyController.sendhistory(code);});
         return "index";
     }
