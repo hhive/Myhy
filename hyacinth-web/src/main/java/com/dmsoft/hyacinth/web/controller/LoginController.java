@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,9 +41,11 @@ public class LoginController {
     }
     @ResponseBody
     @RequestMapping(value = "/login",method =RequestMethod.POST)
-    public User login(@RequestParam(value="Username",required = false) String username,@RequestParam(value = "Password",required = false) String password){
+    public User login(@RequestParam(value="Username",required = false) String username, @RequestParam(value = "Password",required = false) String password,HttpServletRequest request){
         User user = userService.validateUser(username,password);
         if(user!= null){
+            HttpSession session = request.getSession(true);
+            session.setAttribute("user",username);
             return user;
         }
         else{

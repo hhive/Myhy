@@ -1,5 +1,6 @@
 package com.dmsoft.hyacinth.web.controller;
 
+import com.dmsoft.hyacinth.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,6 +17,8 @@ import java.util.Properties;
 @Controller
 @RequestMapping(value = "/views")
 public class SendemailController {
+    @Autowired
+    private EmailService emailService;
    // private JavaMailSender mailSender=new JavaMailSenderImpl();//spring 提供的邮件发送类
 
     //@Value("${spring.mail.username}")
@@ -39,7 +42,7 @@ public class SendemailController {
         pro.put("mail.smtp.auth", "true");
         pro.put("mail.smtp.ssl.enable", "true");
         pro.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-
+       // pro.put("mail.smtp.port","25");//端口？
         mailSender.setJavaMailProperties(pro);
         File f=new File("d:/"+name+".zip");
         String to = "troy.chen@cygia.com";

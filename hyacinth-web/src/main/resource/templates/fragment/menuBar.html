@@ -42,6 +42,41 @@
 <body>
 <nav id="navMenuBar" class="navbar navbar-default" >
     <div class="container-fluid">
+        <div class="black" id="black"></div>
+        <div class="dialog" id="dialogBox" display="none">
+            <span style="display: inline-block;">修改邮箱信息</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;"></span>
+            <form id="fim" action="/changeemail" method="post" >
+                <table>
+                    <tr class="fitem">
+                        <td><label>新邮箱:</label></td>
+                    </tr>
+                    <tr><td>
+                        <input name ="newEmail" id="newEmail" type="text" value="" />
+                    </td></tr>
+                    <tr class="fitem">
+                        <td><label>新密码:</label></td>
+                    </tr>
+                    <tr><td>
+                        <input name ="Password" id="Password" type="password" value=""/>
+                    </td></tr>
+                    <tr class="fitem">
+                        <td><label>端口:</label></td>
+                    </tr>
+                    <tr><td>
+                        <input name ="post" id="post" type="text" value=""/>
+                    </td></tr>
+                    <tr>
+                        <input type="radio" id="firefork" value="mail.cygia.com" name="type"/><label>foxmail</label>
+                        <input type="radio" id="tencent" value="smtp.qq.com" name="type"/><lable>qq_mail</lable>
+                    </tr>
+                </table>
+                <button id="changeEmailBtn" class="btn gray" type="submit"
+                        style="width: 100px; float:right;">
+                    保存
+                </button>
+            </form>
+
+        </div>
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -121,41 +156,6 @@
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
-    <div class="black" id="black"></div>
-    <div class="dialog" id="dialogBox">
-        <span style="display: inline-block;">修改邮箱信息</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;"></span>
-        <form id="fim" action="/changeemail" method="post" >
-            <table>
-                <tr class="fitem">
-                    <td><label>新邮箱:</label></td>
-                </tr>
-                <tr><td>
-                    <input name ="newEmail" id="newEmail" type="text" value="" />
-                </td></tr>
-                <tr class="fitem">
-                    <td><label>新密码:</label></td>
-                </tr>
-                <tr><td>
-                    <input name ="Password" id="Password" type="password" value=""/>
-                </td></tr>
-                <tr class="fitem">
-                    <td><label>端口:</label></td>
-                </tr>
-                <tr><td>
-                    <input name ="post" id="post" type="text" value=""/>
-                </td></tr>
-                <tr>
-                    <input type="radio" id="firefork" value="mail.cygia.com" name="type"/><label>foxmail</label>
-                    <input type="radio" id="tencent" value="smtp.qq.com" name="type"/><lable>qq_mail</lable>
-                </tr>
-            </table>
-            <button id="changeEmailBtn" class="btn gray" type="submit"
-                    style="width: 100px; float:right;">
-                保存
-            </button>
-        </form>
-
-    </div>
 </nav>
 <script src="../../../static/js/core/business/menuBar.js"></script>
 <script language="JavaScript">
