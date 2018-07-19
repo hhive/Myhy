@@ -45,7 +45,7 @@ public class LoginController {
         User user = userService.validateUser(username,password);
         if(user!= null){
             HttpSession session = request.getSession(true);
-            session.setAttribute("user",username);
+            session.setAttribute("username",username);
             return user;
         }
         else{

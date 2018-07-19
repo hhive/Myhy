@@ -160,7 +160,7 @@ $(function () {
 
             var doc=document;
             var Back=doc.getElementById('black'),
-                DialogBox=doc.getElementById('dialogBox'),
+                DialogBox=doc.getElementById('change_dialogBox'),
                 DialogClose=DialogBox.getElementsByClassName('dialog_close')[0];
             //显示遮罩层
             Back.style.display='block';

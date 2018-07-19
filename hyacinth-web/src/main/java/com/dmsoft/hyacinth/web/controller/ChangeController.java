@@ -3,6 +3,7 @@ package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dto.SalaryDto;
 import com.dmsoft.hyacinth.server.dto.StaffDto;
+import com.dmsoft.hyacinth.server.service.EmailService;
 import com.dmsoft.hyacinth.server.service.SalaryService;
 import com.dmsoft.hyacinth.server.service.StaffService;
 import com.dmsoft.hyacinth.web.controller.ExportImage;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.mail.AuthenticationFailedException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +34,8 @@ public class ChangeController {
     private SalaryService salaryService;
     @Autowired
     HistoryController historyController;
+    @Autowired
+    EmailService emailService;
     @RequestMapping(value = "/export")
     public String export(@RequestParam("id_checked")List<String> idList,HttpServletResponse response)throws IOException{
         //List<SalaryDto> salaryDtoList=salaryService.findAll();
@@ -64,7 +68,11 @@ public class ChangeController {
             SalaryDto sa = salaryService.findbycode(code);
            exportImage(sa);
         SendemailController s=new SendemailController();
-        s.sendSalaryWithAttachment(sa.getName());
+        try {
+            s.sendSalaryWithAttachment(sa.getName());
+        }catch (NullPointerException e){
+            throw new NullPointerException("未找到工号为"+code+"的工资文件");
+        }
         historyController.sendhistory(code);});
         return "index";
     }

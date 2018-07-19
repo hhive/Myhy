@@ -1,5 +1,6 @@
 package com.dmsoft.hyacinth.web.controller;
 
+import com.dmsoft.hyacinth.server.dto.EmailDto;
 import com.dmsoft.hyacinth.server.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -17,17 +18,11 @@ import java.util.Properties;
 @Controller
 @RequestMapping(value = "/views")
 public class SendemailController {
-    @Autowired
-    private EmailService emailService;
-   // private JavaMailSender mailSender=new JavaMailSenderImpl();//spring 提供的邮件发送类
+   // @Autowired
+   // private EmailService emailService;
 
-    //@Value("${spring.mail.username}")
     private String From="roy.yang@cygia.com";
 
-//    @RequestMapping(value = "/sendEmail")
-//    public String email(){
-//        return "views/sendEmail";
-//    }
 
     @RequestMapping(value = "/Email")
     public ModelAndView sendSalaryWithAttachment(String name) {

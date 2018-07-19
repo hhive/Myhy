@@ -41,7 +41,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
                 throws Exception {
             HttpSession session = request.getSession();
-            if (session.getAttribute("user") != null)
+            if (session.getAttribute("username") != null)
                 return true;
 
             // 跳转登录
