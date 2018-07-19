@@ -38,7 +38,6 @@ public class UserController {
     public String userView( HttpServletRequest request,HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
-        System.out.println("user"+username);
         if(username.equals("admin"))
             return "views/user";
         else {

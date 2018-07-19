@@ -53,7 +53,7 @@ public class SendemailController {
                 helper.setSubject(title);
                 helper.setText(content,true);   //true表示邮件有附件
                 FileSystemResource fileSystemResource = new FileSystemResource(f);
-                helper.addAttachment(name+"的工资信息.zip",fileSystemResource);
+                helper.addAttachment(name+".zip",fileSystemResource);
             } catch (Exception e) {
                 e.printStackTrace();
             }

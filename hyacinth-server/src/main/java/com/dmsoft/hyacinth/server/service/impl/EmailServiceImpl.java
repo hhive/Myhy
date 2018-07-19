@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailServiceImpl implements EmailService {
     @Autowired
-    private EmailDao emailDao;
+    EmailDao emailDao;
 
     @Override
     public EmailDto findid(Long id) {
