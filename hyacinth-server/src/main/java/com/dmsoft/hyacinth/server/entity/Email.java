@@ -1,11 +1,15 @@
 package com.dmsoft.hyacinth.server.entity;
 
+import com.dmsoft.bamboo.common.persistence.BaseEntity;
+import org.springframework.data.annotation.Id;
+
 import javax.persistence.Entity;
+
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "t_email")
-public class Email {
+public class Email extends BaseEntity {
     private Long id;
     private String email;
     private String password;

@@ -66,7 +66,6 @@ public class UserController {
         int total=userService.gettusernumber();
         //  List<UserDto>  userinfolist=userService.findAllandPage(startRecord,pageSize);
         List<UserDto>  userinfolist=userService.findAllandPage(startRecord,pageSize);
-        System.out.println("5555555555555555555");
         Map resultMap=new HashMap();
         resultMap.put("total",total-1);
         resultMap.put("rows",userinfolist);

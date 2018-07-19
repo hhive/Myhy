@@ -1,6 +1,8 @@
 package com.dmsoft.hyacinth.server.dto;
 
-public class EmailDto {
+import com.dmsoft.bamboo.common.dto.AbstractValueObject;
+
+public class EmailDto extends AbstractValueObject {
     private Long id;
     private String email;
     private String password;
