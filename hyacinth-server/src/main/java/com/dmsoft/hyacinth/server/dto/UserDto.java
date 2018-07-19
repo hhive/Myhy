@@ -17,11 +17,13 @@ import java.util.List;
 public class UserDto extends AbstractValueObject {
 
     private Long id;
+    private String code;
     private String name;
     private String loginName;
     private String salt;
     private String password;
     private String email;
+
 
     private List<RoleDto> roles;
 
@@ -31,6 +33,15 @@ public class UserDto extends AbstractValueObject {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

@@ -51,7 +51,7 @@
 <body>
 <div id="divMenuBar">
 </div>
-
+<button type="button" class="btn btn-default" id="change">button</button>
 <div id="body" class="container" style="width: calc(100% - 5px); float:right">
     <div class="well" style="padding-left: 30px; padding-right: 30px;">
         <div class="table-title" style="margin-top: 23px">
@@ -84,5 +84,8 @@
     });
     staffs.init();
 </script>
+<script>$('change').click(function () {
+    alert($('#dt_staffList').DataTable().rows('.selected').data().length +' row(s) selected' );
+});</script>
 </body>
 </html>

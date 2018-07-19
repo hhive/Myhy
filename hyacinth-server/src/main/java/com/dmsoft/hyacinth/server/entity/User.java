@@ -20,6 +20,7 @@ import java.util.List;
 @Table(name = "t_user")
 public class User extends BaseEntity {
     private String name;
+    private String code;
     private String loginName;
     private String salt;
     private String password;
@@ -36,6 +37,14 @@ public class User extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getLoginName() {
