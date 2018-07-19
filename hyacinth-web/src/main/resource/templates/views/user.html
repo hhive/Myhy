@@ -51,7 +51,7 @@
             position: fixed;
             z-index: 3;
             width: 300px;
-            min-height: 300px;
+            min-height: 250px;
             top:50%;
             left:50%;
             margin: -150px 0 0 -250px;
@@ -101,12 +101,10 @@
         <table id="dt_StaffList" class="table table-striped table-bordered table-hover" width="100%">
             <thead>
             <tr>
-                <th data-class="expand" style="width: 91px">ID</th>
+                <th data-class="expand" style="width: 91px">请选择</th>
                 <th data-class="expand" style="width: 91px">工号</th>
                 <th data-class="expand" style="width: 151px">姓名</th>
                 <th data-class="expand" style="width: 151px">身份</th>
-                <th data-class="expand" style="width: 151px">salt</th>
-                <th data-class="expand" style="width: 151px">密码</th>
                 <th data-class="expand" style="width: 151px">邮箱</th>
             </tr>
             </thead>
@@ -117,15 +115,15 @@
 </div>
 <div class="black" id="black"></div>
 <div class="dialog" id="change_dialogBox" buttons="#modifydg-buttons">
-    <span style="display: inline-block;">修改用户信息</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;">X</span>
+    <span style="display: inline-block;">修改用户信息</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;"></span>
     <form id="fim" method="POST" >
-        <table >
+        <table align="center">
             <tr class="fitem">
-                <td><label>id:</label></td>
-                <td><input name="id" type="text" id="id" value="" /></td>
+                <td><label>序号:</label></td>
+                <td><input name="id" type="text" id="id" value=""  disabled="true"/></td>
             </tr>
             <tr class="fitem">
-                <td><label>code:</label></td>
+                <td><label>工号:</label></td>
                 <td><input name="code" type="text" id="code" value="" /></td>
             </tr>
             <tr class="fitem">
@@ -136,10 +134,10 @@
                 <td> <label>身份:</label></td>
                 <td> <input name="name" type="text" id="name" value="" /></td>
             </tr>
-            <tr class="fitem">
-                <td><label>salt:</label></td>
-                <td> <input name="salt" type="text" id="salt" value="" /></td>
-            </tr>
+            <!--<tr class="fitem">-->
+                <!--<td><label>salt:</label></td>-->
+                <!--<td> <input name="salt" type="text" id="salt" value="" /></td>-->
+            <!--</tr>-->
             <tr class="fitem">
                 <td><label>密码:</label></td>
                 <td> <input name="password" type="text" id="password" value="" /></td>
@@ -148,17 +146,16 @@
                 <td> <label>邮箱:</label></td>
                 <td><input name="email" type="text" id="email" value="" /></td>
             </tr>
+            <tr style="text-align: center"><td colspan="2"><button style="width: 100px; " onclick="modify()">保存</button></td></tr>
         </table>
-
-        <a href="#" style="width: 100px;float:right; margin-right: 30px" onclick="modify()">保存</a>
     </form>
 </div>
 <div class="dialog" id="new_dialogBox" >
-    <span style="display: inline-block;">创建新用户</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;">X</span>
+    <span style="display: inline-block;">创建新用户</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;"></span>
     <form id="new_fim" method="POST" >
-        <table >
+        <table align="center">
             <tr class="fitem">
-                <td><label>code:</label></td>
+                <td><label>工号:</label></td>
                 <td><input name="code" type="text" id="new_code" value="" /></td>
             </tr>
             <tr class="fitem">
@@ -169,10 +166,10 @@
                 <td> <label>身份:</label></td>
                 <td> <input name="name" type="text" id="new_name" value="" /></td>
             </tr>
-            <tr class="fitem">
-                <td><label>salt:</label></td>
-                <td> <input name="salt" type="text" id="new_salt" value="" /></td>
-            </tr>
+            <!--<tr class="fitem">-->
+                <!--<td><label>salt:</label></td>-->
+                <!--<td> <input name="salt" type="text" id="new_salt" value="" /></td>-->
+            <!--</tr>-->
             <tr class="fitem">
                 <td><label>密码:</label></td>
                 <td> <input name="password" type="text" id="new_password" value="" /></td>
@@ -181,9 +178,9 @@
                 <td> <label>邮箱:</label></td>
                 <td><input name="email" type="text" id="new_email" value="" /></td>
             </tr>
+            <tr style="text-align: center"><td colspan="2"><button style="width: 100px; " onclick="insertUser()">保存</button></td></tr>
         </table>
 
-        <button style="width: 100px;float:right; margin-right: 30px" onclick="insertUser()">保存</button>
     </form>
 </div>
 <script src="../../../static/js/core/business/user.js"></script>

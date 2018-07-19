@@ -38,7 +38,9 @@ public class UserController {
     public String userView( HttpServletRequest request,HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("username");
-        if(username.equals("admin"))
+        User user = userService.findByloginName(username);
+        String name = user.getName();
+        if(name.equals("Administrator"))
             return "views/user";
         else {
             response.setContentType("text/html;charset=UTF-8");
@@ -77,10 +79,9 @@ public class UserController {
     public void insertUser(@RequestParam(name="code") String code,
                            @RequestParam(name="loginName") String loginName,
                            @RequestParam(name="name") String name,
-                           @RequestParam(name="salt") String salt,
                            @RequestParam(name="password") String password,
                            @RequestParam(name="email") String email) {
-        userService.insert(code,loginName,name,salt,password,email);
+        userService.insert(code,loginName,name,password,email);
     }
 
     @ResponseBody
@@ -89,23 +90,18 @@ public class UserController {
                                          @RequestParam(name="code" ) String code,
                                          @RequestParam(name="loginName") String loginName,
                                          @RequestParam(name="name") String name,
-                                         @RequestParam(name="salt") String salt,
                                          @RequestParam(name="password") String password,
                                          @RequestParam(name="email") String email){
-        System.out.println("1111111111111112");
         Map<String,String> map=new HashMap<>();
-        userService.update(id,code,loginName,name,salt,password,email);
+        userService.update(id,code,loginName,name,password,email);
         map.put("success","true");
         return map;
     }
 
     @ResponseBody
     @RequestMapping(value = "/deleteOne")
-    public Map<String,String> deleteOne(@RequestParam(name="id") long id){
-        Map<String,String> map=new HashMap<>();
+    public void deleteOne(@RequestParam(name="id") long id){
         userService.deleteOne(id);
-        map.put("success","true");
-        return map;
     }
 
     @RequestMapping(value = "/code")

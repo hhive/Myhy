@@ -68,13 +68,14 @@ public class UserServiceImpl implements UserService {
    }
 
     @Override
-    public void insert(String code,String username,String name,String salt,String password,String email){
-        userDao.insert(code,username, name,salt,password, email);
+    public void insert(String code,String username,String name,String password,String email){
+        System.out.println("11111111111111111");
+        userDao.insert(code,username,name,password, email);
     }
 
     @Override
-    public   void update(long id,String code,String username,String name,String salt,String password,String email){
-        userDao.update(id,code,username, name,salt,password, email);
+    public   void update(long id,String code,String username,String name,String password,String email){
+        userDao.update(id,code,username, name,password, email);
     }
 
     @Override
@@ -150,6 +151,9 @@ public class UserServiceImpl implements UserService {
         return  userEmail;
     }
 
-
+    public User findByloginName(String loginname)
+    {
+        return userDao.findByLoginName(loginname);
+    }
 
 }
