@@ -23,14 +23,14 @@ public class SalaryServiceImpl implements SalaryService {
     public SalaryDto findbycode(String code) {
         Salary entity = salaryDao.findByCode(code);
         SalaryDto dto = new SalaryDto();
+        if(entity==null) return null;
         BeanUtils.copyProperties(entity, dto);
         return dto;
     }
 
     @Override
     public List<SalaryDto> findAll() {
-        Iterable<Salary> entityList = salaryDao.
-                findAll();
+        Iterable<Salary> entityList = salaryDao.findAll();
 
         List<SalaryDto> list = Lists.newArrayList();
 
@@ -48,10 +48,6 @@ public class SalaryServiceImpl implements SalaryService {
         salaryDao.deleteall();
     }
 
-    @Override
-    public void findall() {
-        salaryDao.findall();
-    }
 
     @Override
     @Transactional

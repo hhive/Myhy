@@ -81,7 +81,7 @@
             <h5 class="h5-gray-low">Staff Count&nbsp;</h5>
             <!--<label id="totalUser" class="h5-bold"  style="float:left;margin-top: 10px" th:text="${total + '人'}"></label>-->
         </div>
-        <table id="dt_staffList" class="table table-striped table-bordered table-hover" width="100%">
+        <table id="dt_StaffList" class="table table-striped table-bordered table-hover" width="100%">
             <thead>
             <tr>
                 <th data-class="expand" style="width: 91px">ID</th>
@@ -96,14 +96,20 @@
             <tbody>
             </tbody>
         </table>
-        <button type="button" class="btn btn-default navbar-right" id="change">find more</button>
+        <button type="button" class="btn btn-default navbar-right" id="change">修改用户</button>
+        <button type="button" class="btn btn-default navbar-right" id="delete">删除用户</button>
+        <button type="button" class="btn btn-default navbar-right" id="create">创建用户</button>
     </div>
 </div>
 <div class="black" id="black"></div>
-<div class="dialog" id="dialogBox">
+<div class="dialog" id="dialogBox" buttons="#modifydg-buttons">
     <span style="display: inline-block;">修改用户信息</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;">X</span>
-    <form id="fim" method="post" >
-        <table>
+    <form id="fim" method="POST" >
+        <table >
+            <tr class="fitem">
+                <td><label>id:</label></td>
+                <td><input name="id" type="text" id="id" value="" /></td>
+            </tr>
             <tr class="fitem">
                 <td><label>code:</label></td>
                 <td><input name="code" type="text" id="code" value="" /></td>
@@ -129,15 +135,54 @@
                 <td><input name="email" type="text" id="email" value="" /></td>
             </tr>
         </table>
+
+        <a href="#" style="width: 100px;float:right; margin-right: 30px" onclick="modify()">保存</a>
     </form>
 </div>
+<div class="dialog" id="new_dialogBox" >
+    <span style="display: inline-block;">创建新用户</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;">X</span>
+    <form id="new_fim" method="POST" >
+        <table >
+            <tr class="fitem">
+                <td><label>code:</label></td>
+                <td><input name="code" type="text" id="new_code" value="" /></td>
+            </tr>
+            <tr class="fitem">
+                <td><label>姓名:</label></td>
+                <td><input name="loginName" type="text" id="new_loginName" value=""  /></td>
+            </tr>
+            <tr class="fitem">
+                <td> <label>身份:</label></td>
+                <td> <input name="name" type="text" id="new_name" value="" /></td>
+            </tr>
+            <tr class="fitem">
+                <td><label>salt:</label></td>
+                <td> <input name="salt" type="text" id="new_salt" value="" /></td>
+            </tr>
+            <tr class="fitem">
+                <td><label>密码:</label></td>
+                <td> <input name="password" type="text" id="new_password" value="" /></td>
+            </tr>
+            <tr class="fitem">
+                <td> <label>邮箱:</label></td>
+                <td><input name="email" type="text" id="new_email" value="" /></td>
+            </tr>
+        </table>
 
+        <button style="width: 100px;float:right; margin-right: 30px" onclick="insertUser()">保存</button>
+    </form>
+</div>
 <script src="../../../static/js/core/business/user.js"></script>
 <script src="../../../static/js/core/business/menuBar.js"></script>
+<script src="https://ciphertrick.com/demo/jquerysession/js/jquerysession.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
         var $divMenuBar = $("#divMenuBar");
+
+        // var s =$.session.get('username');
+        // alert(s);
+        // alert("SESSION DATA: " + $.session.get('username'));
         $divMenuBar.load("../../fragment/menuBar.html #navMenuBar", function () {
         });
     });

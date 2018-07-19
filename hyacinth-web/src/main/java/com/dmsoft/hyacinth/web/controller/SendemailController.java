@@ -19,7 +19,7 @@ public class SendemailController {
    // private JavaMailSender mailSender=new JavaMailSenderImpl();//spring 提供的邮件发送类
 
     //@Value("${spring.mail.username}")
-    private String From="790539730@qq.com";
+    private String From="roy.yang@cygia.com";
 
 //    @RequestMapping(value = "/sendEmail")
 //    public String email(){
@@ -31,10 +31,9 @@ public class SendemailController {
 //        System.out.println(name);
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
-        mailSender.setHost("smtp.qq.com");
-        mailSender.setPort(465);
-        mailSender.setUsername("790539730@qq.com");
-        mailSender.setPassword("izfpmzacvrnlbdfa"); // 这里要用邀请码，不是你登录邮箱的密码
+        mailSender.setHost("mail.cygia.com");
+        mailSender.setUsername("roy.yang@cygia.com");
+        mailSender.setPassword("123!@#qqw"); // 这里要用邀请码，不是你登录邮箱的密码
 
         Properties pro = System.getProperties(); // 下面各项缺一不可
         pro.put("mail.smtp.auth", "true");

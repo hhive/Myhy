@@ -71,7 +71,7 @@ var staffs = function () {
                     "error": function (e) {
                         console.log(e.status + "  :status");
                         if (e.status == 401 || e.status == 500 || e.status == 404) {
-                            //TODO
+
                         }
                     }
                 },
@@ -198,9 +198,9 @@ $(function(){
         }
         else {
             $.ajax({
-                url : "/staff/show",
+                url : "/email",
                 type: "post",
-                data:{msg:valList},
+                data:{id_checked:valList},
                 traditional: true,
                 success: function () {
                     alert("发送成功");
@@ -211,6 +211,38 @@ $(function(){
             })
         }
     }
+    )
+});
+$(function(){
+    $("#pack").click(function(){
+            var valList = [];
+            var i=0;
+            $.each($(":checkbox:checked"),function(){
+                valList[i] = $(this).val();
+                i++;
+            });
+            if(valList == null){
+                alert ("请选中员工");
+                return false;
+            }
+            else {
+                $.ajax({
+                    url : "/export",
+                    type: "post",
+                    data:{id_checked:valList},
+                    traditional: true,
+                    success: function () {
+                        alert("打包成功");
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("错误信息:" + XMLHttpRequest.responseText); //获取的信息即是异常中的Message
+                    }
+                    // error: function (request, status, error) {
+                    //     alert(request.responseText);
+                    // }
+                })
+            }
+        }
     )
 });
 

@@ -12,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,24 +33,39 @@ public class ChangeController {
     @Autowired
     HistoryController historyController;
     @RequestMapping(value = "/export")
-    public String export(){
-            SalaryDto sa = salaryService.findbycode("DM12345");
+    public String export(@RequestParam("id_checked")List<String> idList,HttpServletResponse response)throws IOException{
+        //List<SalaryDto> salaryDtoList=salaryService.findAll();
+           // SalaryDto sa = salaryService.findbycode("DM12345");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out =response.getWriter();
+        idList.forEach(id->{
+           String code=staffService.findById(Long.parseLong(id)).getCode();
+            SalaryDto sa = salaryService.findbycode(code);
+            if(sa==null){
+                throw new RuntimeException("未找到工号为"+code+"的工资");
+               // out.print("<script language=\"javascript\">alert('未找到工号为"+code+"的工资');</script>");
+            }
+            else{
             exportImage(sa);
             PackageController packageController=new PackageController();
-            packageController.zipFilesAndEncrypt("d:/"+sa.getName()+".bmp","d:/"+sa.getName()+".zip",sa.getCode());
-            File file = new File("d:/"+sa.getName()+".bmp");
-            file.delete();
-            historyController.packagehistory();
+                packageController.zipFilesAndEncrypt("d:/"+sa.getName()+".bmp","d:/"+sa.getName()+".zip",sa.getCode());
+                File file = new File("d:/"+sa.getName()+".bmp");
+                file.delete();
+            historyController.packagehistory(code);}});
         return "index";
     }
 
-    @RequestMapping(value = "/email")
-    public String email(){
-        SalaryDto sa = salaryService.findbycode("DM12345");
-        exportImage(sa);
+    @RequestMapping(value = "/email",method = RequestMethod.POST)
+    public String email(@RequestParam("id_checked")List<String> idList){
+        //SalaryDto sa = salaryService.findbycode("DM12345");
+       // List<SalaryDto> salaryDtoList=salaryService.findAll();
+        idList.forEach(id->{
+            String code=staffService.findById(Long.parseLong(id)).getCode();
+            SalaryDto sa = salaryService.findbycode(code);
+           exportImage(sa);
         SendemailController s=new SendemailController();
         s.sendSalaryWithAttachment(sa.getName());
-        historyController.sendhistory();
+        historyController.sendhistory(code);});
         return "index";
     }
 

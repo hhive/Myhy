@@ -49,6 +49,7 @@ public class LoginController {
             return null;
         }
     }
+
     @RequestMapping(value = "/success")
     public String success() {
         return "index";

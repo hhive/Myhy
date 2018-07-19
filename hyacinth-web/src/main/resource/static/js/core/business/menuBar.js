@@ -27,6 +27,8 @@ var menuBar = function () {
                 $(id + " a").css('font-weight', 'bold');
                 $(id + " a").css('color', '#222222');
             }
+
+            //var username = "<%=Session("username").ToString()%>";
         }
     }
 };
@@ -51,3 +53,5 @@ function Search(){
     var imformation = $("#message").val();
     window.location.href="http://localhost:8888/staff/search1?message="+imformation;
 }
+
+
