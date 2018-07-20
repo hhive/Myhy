@@ -43,7 +43,9 @@ public class LoginController {
     @RequestMapping(value = "/login",method =RequestMethod.POST)
     public User login(@RequestParam(value="Username",required = false) String username, @RequestParam(value = "Password",required = false) String password,HttpServletRequest request){
         User user = userService.validateUser(username,password);
+
         if(user!= null){
+
             HttpSession session = request.getSession(true);
             session.setAttribute("username",username);
             return user;

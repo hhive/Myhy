@@ -42,6 +42,7 @@ public class StaffController {
     @RequestMapping(value = "/search1",method = RequestMethod.GET)
     public String search1(@RequestParam(value = "message")String msg,HttpServletRequest request){
         HttpSession session = request.getSession(true);
+        System.out.print(msg);
         if(msg=="") session.setAttribute("message",null);
         else session.setAttribute("message", msg);
         return "views/staff/staffsearch";

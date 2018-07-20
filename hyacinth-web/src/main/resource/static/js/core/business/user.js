@@ -214,8 +214,10 @@ $(function () {
                 url : "/user/deleteOne",
                 type : "post",
                 data : {"id":val},
-                success : function () {
+                success : function (data) {
+                    if(data=="success")
                     alert ("删除成功");
+                    else  alert ("删除失败，无法删除自己");
                     window.parent.location.reload();
                 },
                 error : function () {

@@ -40,7 +40,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
                 throws Exception {
-            HttpSession session = request.getSession();
+            HttpSession session = request.getSession(true);
             if (session.getAttribute("username") != null)
                 return true;
 
@@ -51,3 +51,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         }
     }
 }
+

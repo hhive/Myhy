@@ -100,8 +100,14 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/deleteOne")
-    public void deleteOne(@RequestParam(name="id") long id){
-        userService.deleteOne(id);
+    public String deleteOne(@RequestParam(name="id") long id,HttpServletRequest request){
+        UserDto user = userService.findUserById(id);
+        HttpSession session=request.getSession(true);
+        if(user.getLoginName().equals(session.getAttribute("username"))){
+            return null;
+        }else{
+            userService.deleteOne(id);
+        return "success";}
     }
 
     @RequestMapping(value = "/code")
