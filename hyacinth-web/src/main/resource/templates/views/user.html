@@ -120,19 +120,19 @@
         <table align="center">
             <tr class="fitem">
                 <td><label>序号:</label></td>
-                <td><input name="id" type="text" id="id" value=""  disabled="true"/></td>
+                <td><input name="id" type="text" id="id" value=""  disabled="true" /></td>
             </tr>
             <tr class="fitem">
                 <td><label>工号:</label></td>
-                <td><input name="code" type="text" id="code" value="" /></td>
+                <td><input name="code" type="text" id="code" required="required" placeholder="工号不能为空"/></td>
             </tr>
             <tr class="fitem">
                 <td><label>姓名:</label></td>
-                <td><input name="loginName" type="text" id="loginName" value=""  /></td>
+                <td><input name="loginName" type="text" id="loginName" required="required" placeholder="姓名不能为空"/></td>
             </tr>
             <tr class="fitem">
                 <td> <label>身份:</label></td>
-                <td> <input name="name" type="text" id="name" value="" /></td>
+                <td> <input name="name" type="text" id="name" required="required" placeholder="身份不能为空"/></td>
             </tr>
             <!--<tr class="fitem">-->
                 <!--<td><label>salt:</label></td>-->
@@ -140,31 +140,31 @@
             <!--</tr>-->
             <tr class="fitem">
                 <td><label>密码:</label></td>
-                <td> <input name="password" type="text" id="password" value="" /></td>
+                <td> <input name="password" type="text" id="password" required="required"  placeholder="8~20位数字和字母的组合"/></td>
             </tr>
             <tr class="fitem">
                 <td> <label>邮箱:</label></td>
-                <td><input name="email" type="text" id="email" value="" /></td>
+                <td><input name="email" type="text" id="email" required="required"  placeholder="请输入正确的邮箱地址" /></td>
             </tr>
             <tr style="text-align: center"><td colspan="2"><button style="width: 100px; " onclick="modify()">保存</button></td></tr>
         </table>
     </form>
 </div>
 <div class="dialog" id="new_dialogBox" >
-    <span style="display: inline-block;">创建新用户</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;"></span>
+    <span style="display: inline-block;">创建新用户</span><span class="dialog_close" style="display: inline-block;padding-left: 470px;border-bottom: 1px solid #eee;" ></span>
     <form id="new_fim" method="POST" >
         <table align="center">
             <tr class="fitem">
                 <td><label>工号:</label></td>
-                <td><input name="code" type="text" id="new_code" value="" /></td>
+                <td><input name="code" type="text" id="new_code" required="required"  placeholder="工号不能为空"/></td>
             </tr>
             <tr class="fitem">
                 <td><label>姓名:</label></td>
-                <td><input name="loginName" type="text" id="new_loginName" value=""  /></td>
+                <td><input name="loginName" type="text" id="new_loginName" required="required" placeholder="姓名不能为空" /></td>
             </tr>
             <tr class="fitem">
                 <td> <label>身份:</label></td>
-                <td> <input name="name" type="text" id="new_name" value="" /></td>
+                <td> <input name="name" type="text" id="new_name" required="required" placeholder="身份不能为空"/></td>
             </tr>
             <!--<tr class="fitem">-->
                 <!--<td><label>salt:</label></td>-->
@@ -172,11 +172,11 @@
             <!--</tr>-->
             <tr class="fitem">
                 <td><label>密码:</label></td>
-                <td> <input name="password" type="text" id="new_password" value="" /></td>
+                <td> <input name="password" type="text" id="new_password" required="required" placeholder="8~20位数字和字母" /></td>
             </tr>
             <tr class="fitem">
                 <td> <label>邮箱:</label></td>
-                <td><input name="email" type="text" id="new_email" value="" /></td>
+                <td><input name="email" type="text" id="new_email" required="required"  placeholder="请输入正确的邮箱地址"/></td>
             </tr>
             <tr style="text-align: center"><td colspan="2"><button style="width: 100px; " onclick="insertUser()">保存</button></td></tr>
         </table>
@@ -194,6 +194,98 @@
         });
     });
     staffs.init();
+    $("#fim").bootstrapValidator({
+        dialog: 'tooltip',
+        feedbackIcons: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'fa fa-refresh'
+        },
+        fields: {
+            new_code: {
+                validators: {
+                    notEmpty: {
+                        message: '工号不能为空'
+                    }
+                }
+            },
+            new_loginName: {
+                validators: {
+                    notEmpty: {
+                        message: '用户名不能为空'
+                    }
+                }
+            },
+            new_email: {
+                validators: {
+                    notEmpty: {
+                        message: '邮箱地址不能为空'
+                    },
+                    emailAddress: {
+                        message: '邮箱地址格式有误'
+                    }
+                }
+            },
+            new_password: {
+                validators: {
+                    regexp: {
+                        enable: true,
+                        regexp: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/,
+                        message: '请输入8~20位数字和字母的组合'
+                    },
+                    notEmpty: {
+                        message: '密码不能为空'
+                    }
+                }
+            }
+        }
+    });
+    $("#new_fim").bootstrapValidator({
+        dialog: 'tooltip',
+        feedbackIcons: {
+            valid: 'fa fa-check',
+            invalid: 'fa fa-times',
+            validating: 'fa fa-refresh'
+        },
+        fields: {
+            new_code: {
+                validators: {
+                    notEmpty: {
+                        message: '工号不能为空'
+                    }
+                }
+            },
+            new_loginName: {
+                validators: {
+                    notEmpty: {
+                        message: '用户名不能为空'
+                    }
+                }
+            },
+            new_email: {
+                validators: {
+                    notEmpty: {
+                        message: '邮箱地址不能为空'
+                    },
+                    emailAddress: {
+                        message: '邮箱地址格式有误'
+                    }
+                }
+            },
+            new_password: {
+                validators: {
+                    regexp: {
+                        enable: true,
+                        regexp: /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/,
+                        message: '请输入8~20位数字和字母的组合'
+                    },
+                    notEmpty: {
+                        message: '密码不能为空'
+                    }
+                }
+            }
+        }
+    });
 </script>
 </body>
 </html>

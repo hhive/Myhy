@@ -194,6 +194,7 @@ function modify(){
         async: false,
         success : function () {
             alert("修改成功");
+            window.parent.location.reload();
             parent.layer.closeAll('dialogBox');
         },
         error : function () {
@@ -222,6 +223,7 @@ function insertUser() {
         async: false,
         success : function () {
             alert ("创建新用户成功");
+            window.parent.location.reload();
             parent.layer.closeAll('dialogBox');
         },
         error : function () {
