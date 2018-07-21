@@ -10,7 +10,9 @@ import com.dmsoft.hyacinth.server.dao.UserDao;
 import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.entity.User;
 import com.dmsoft.hyacinth.server.service.UserService;
+import com.dmsoft.hyacinth.server.utils.PasswordHelper;
 import com.google.common.collect.Lists;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PasswordHelper passwordHelper;
 
 
     @Override
@@ -53,9 +57,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User validateUser(String userName, String password) {
-        User user = userDao.findByLoginNameAndPassword(userName, password);
-        if (user != null) {
-            return user;
+        User user = userDao.findByLoginName(userName);
+        String pwd=passwordHelper.decryptPassword(user,password);
+        User user1 = userDao.findByLoginNameAndPassword(userName, pwd);
+        if (user1 != null) {
+            return user1;
         } else {
             return null;
         }
@@ -63,8 +69,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void changePassword(String userName, String oldPwd, String newPwd) {
-          userDao.updatePwd(userName,newPwd,oldPwd);
+    public void changePassword(String userName, String newPwd) {
+        User user = userDao.findByLoginName(userName);
+        String pwd=passwordHelper.encryptPassword(user,newPwd);
+        userDao.updatePwd(userName,pwd);
    }
 
     @Override
@@ -74,7 +82,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public   void update(long id,String code,String username,String name,String salt,String password,String email){
-        userDao.update(id,code,username, name,salt,password, email);
+        User user=userDao.findByLoginName(username);
+        String pwd=passwordHelper.encryptPassword(user,password);
+        userDao.update(id,code,username, name,salt,pwd, email);
     }
 
     @Override
@@ -98,12 +108,14 @@ public class UserServiceImpl implements UserService {
         return dto;
     }
 
-    public UserDto findUserByusername(String username){
-        User entity = userDao.findUserByCode(username);
+    public User findUserByusername(String username){
+        User entity = userDao.findByLoginName(username);
+        System.out.println(username);
+        System.out.println(entity.getLoginName());
         UserDto dto = new UserDto();
         BeanUtils.copyProperties(entity,dto);
-
-        return dto;
+        System.out.println(dto.getLoginName());
+        return entity;
     }
 
     public List<UserDto> userList(int startRecord,int pageSize){

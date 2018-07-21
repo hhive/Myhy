@@ -11,16 +11,13 @@ function login(){
         data :{"Username": username,"Password": password},
         async: false,
         success : function (data) {
-           if(data.name==null){
-               alert("用户名或密码错误");
-           }
-           else{
-               window.location.href="http://localhost:8888/success";
-
-           }
+    if(data.loginName != null)
+            window.location.href="http://localhost:8888/success";
+    else  alert("用户名或密码错误");
 
         },
         error : function () {
+            alert("用户名或密码错误");
         }
     });
 }

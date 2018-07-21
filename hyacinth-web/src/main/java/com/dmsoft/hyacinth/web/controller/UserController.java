@@ -35,20 +35,9 @@ public class UserController {
     UserDao userDao;
 
     @RequestMapping(value = "/userView")
-    public String userView( HttpServletRequest request,HttpServletResponse response) throws IOException{
-        HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
-        System.out.println("user"+username);
-        if(username.equals("admin"))
-            return "views/user";
-        else {
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            out.print("<script language=\"javascript\">alert('需要管理员权限！');window.location.href='/success'</script>");
-            return "index";
-        }
+    public String userView( ){
+        return "views/user";
     }
-
 
     @ResponseBody
     @RequestMapping(value = "/all")
@@ -57,21 +46,6 @@ public class UserController {
         return list;
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/all_first")
-    public Map getUserList(HttpServletRequest request){
-        Integer page=Integer.parseInt(request.getParameter("page"));
-        Integer pageSize=Integer.parseInt(request.getParameter("rows"));//pageSize
-        Integer startRecord=(page-1)*pageSize+1;
-        int total=userService.gettusernumber();
-        //  List<UserDto>  userinfolist=userService.findAllandPage(startRecord,pageSize);
-        List<UserDto>  userinfolist=userService.findAllandPage(startRecord,pageSize);
-        System.out.println("5555555555555555555");
-        Map resultMap=new HashMap();
-        resultMap.put("total",total-1);
-        resultMap.put("rows",userinfolist);
-        return resultMap;
-    }
 
 
     @ResponseBody//如果需要返回JSON，XML或自定义mediaType内容到页面，则需要在对应的方法上加上@ResponseBody注解。
@@ -129,5 +103,10 @@ public class UserController {
         UserDto user = userService.findUserById(Long.parseLong(msg));
 
         return user;
+    }
+
+    @RequestMapping(value = "error")
+    public String error(){
+        return "views/error";
     }
 }

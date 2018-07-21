@@ -6,6 +6,7 @@
 
 package com.dmsoft.hyacinth.server.dao;
 
+import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.entity.User;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -52,8 +53,8 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
 
     @Modifying
     @Transactional
-    @Query("update User user set user.password = ?2 where user.loginName = ?1 and password = ?3")
-    void updatePwd(String userName, String newPwd,String oldPwd);
+    @Query("update User user set user.password = ?2 where user.loginName = ?1")
+    void updatePwd(String userName, String newPwd);
 
     @Modifying
     @Transactional

@@ -1,6 +1,7 @@
 -- Table: t_user
 CREATE TABLE t_user (
   id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  code          VARCHAR(255),
   loginName     VARCHAR(255),
   name          VARCHAR(255),
   salt          VARCHAR(255),
@@ -35,8 +36,9 @@ CREATE TABLE t_staff (
   email         VARCHAR(255),
   emdate         VARCHAR (255)
 );
+
 CREATE TABLE t_salary(
- id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   code			 	 	         VARCHAR(255) ,
   name				            VARCHAR(255),
   basic_salary	 	         float,
@@ -69,17 +71,42 @@ CREATE TABLE t_salary(
   total            float
 );
 CREATE TABLE t_log(
-  id            BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id        BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   opera_time   DATE ,
   opera_name    VARCHAR(255),
   description   VARCHAR(255)
 );
-INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (1, 'DM10000','admin', 'Administrator', '', '123456', 'admin@admin.com');
-INSERT INTO t_user (id, loginName, name, salt, password, email) VALUES (2, 'DM10001','user', 'User', '', '123456', 'user@user.com');
 
 INSERT INTO t_role (id, code, description) VALUES (1, 'admin', 'Administrator');
 INSERT INTO t_role (id, code, description) VALUES (2, 'user', 'User');
 
 INSERT INTO rt_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO rt_user_role (user_id, role_id) VALUES (2, 2);
+
+
+CREATE TABLE t_permission(
+  id INT PRIMARY KEY NOT NULL,
+  available BOOL default false,
+  name VARCHAR (255),
+  parent_id BIGINT,
+  parent_ids VARCHAR(255),
+  permission VARCHAR(255),
+  resource_type VARCHAR(255),
+  url VARCHAR(255)
+);
+
+
+CREATE TABLE rt_role_permission(
+  role_id BIGINT NOT NULL,
+  permission_id BIGINT NOT NULL,
+  PRIMARY KEY (role_id,permission_id)
+);
+
+INSERT INTO t_permission (id,available,name,parent_id,parent_ids,permission,resource_type,url) VALUES (1,0,'用户权限',0,'0/','userInfo:view','menu','user/list');
+INSERT INTO t_permission (id,available,name,parent_id,parent_ids,permission,resource_type,url) VALUES (2,0,'用户添加',1,'0/1','userInfo:add','button','views/privilege');
+INSERT INTO t_permission (id,available,name,parent_id,parent_ids,permission,resource_type,url) VALUES (3,0,'用户删除',1,'0/1','userInfo:del','button','user/list');
+
+INSERT INTO rt_role_permission (role_id,permission_id) VALUES (1,1);
+INSERT INTO rt_role_permission (role_id,permission_id) VALUES (1,2);
+INSERT INTO rt_role_permission (role_id,permission_id) VALUES (1,3);
 

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <script src="../static/js/core/business/menuBar.js"></script>
+</head>
+<body>
+<h5 >ERROR,需要管理员权限</h5>
+<script language="JavaScript">
+    $(document).ready(function () {
+        var $divMenuBar = $("#divMenuBar");
+        $divMenuBar.load("fragment/menuBar.html #navMenuBar", function () {
+        });
+        $divMenuBar.height($("#body").height());
+    });
+</script>
+</body>
+</html>

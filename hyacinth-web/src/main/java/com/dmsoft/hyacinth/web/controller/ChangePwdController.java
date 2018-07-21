@@ -1,11 +1,15 @@
 package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dao.UserDao;
+import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.entity.User;
 import com.dmsoft.hyacinth.server.service.UserService;
+import com.dmsoft.hyacinth.server.utils.PasswordHelper;
+import org.apache.shiro.SecurityUtils;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +26,9 @@ import java.io.PrintWriter;
 public class ChangePwdController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordHelper passwordHelper;
+
 
     @RequestMapping(value = "/pwd")
     public String changepwd() {
@@ -36,28 +43,45 @@ public class ChangePwdController {
 
     //  @SessionAttributes("userName");
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
-    public String Submit(@ModelAttribute User user,
+    public void Submit(@ModelAttribute User user,
                          @RequestParam(name = "oldPassword") String oldPassword,
                          @RequestParam(name = "newPassword") String newPassword,
-                         HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String username = (String) session.getAttribute("username");
-        System.out.println(username);
-        if (userService.validateUser(username, oldPassword) != null) {
-            if (oldPassword.equals(newPassword) != true) {
-                userService.changePassword(username, oldPassword, newPassword);
-                out.print("<script language=\"javascript\">alert('修改密码成功！');window.location.href='/success'</script>");
-                return "index";
-            } else {
-                out.print("<script language=\"javascript\">alert('新密码与旧密码重复！');window.location.href='/user/pwd'</script>");
-                return "views/changePassword";
-            }
-        } else {
-            out.print("<script language=\"javascript\">alert('旧密码输入错误！');window.location.href='/user/pwd'</script>");
-            return "views/changePassword";
+
+        user = (User) SecurityUtils.getSubject().getPrincipal();
+
+       // System.out.println(user.getEmail() + "11111111");
+        String pwd = passwordHelper.decryptPassword(user, oldPassword);
+        System.out.println("加密后的oldpassword" + pwd);
+
+        //数据库的密码与输入的旧密码匹配
+        if (user.getPassword().equals(pwd)) {
+            userService.changePassword(user.getLoginName(), newPassword);
+            System.out.println("修改成功");
+
+        }else{
+
         }
     }
 }
+//    public String Submit(@ModelAttribute User user, Model model, @RequestParam(name = "oldPassword") String oldPassword,
+//                         @RequestParam(name = "newPassword") String newPassword, HttpServletResponse response) throws IOException {
+//        //TODO
+//
+//        user = (User) SecurityUtils.getSubject().getPrincipal();
+//        String pwd=passwordHelper.decryptPassword(user,oldPassword);
+//        System.out.println("加密后的oldpassword"+pwd);
+//        if ( user.getPassword().equals(pwd)) {
+//            // passwordHelper.encryptPassword(user);
+//            userService.changePassword(
+//                    user.getLoginName(), newPassword);
+//
+//            return "success";
+//        } else {
+//            return "error";
+//        }
+//    }
+//}

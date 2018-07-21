@@ -29,7 +29,7 @@ public interface UserService {
 
     UserDto findByCode(String code);
 
-    UserDto findUserByusername(String username);
+    User findUserByusername(String username);
     /**
      * Find all users.
      *
@@ -50,10 +50,9 @@ public interface UserService {
      * Change password for user.
      *
      * @param userName name of user
-     * @param oldPwd   the old password
      * @param newPwd   the new password
      */
-    void changePassword(String userName, String oldPwd, String newPwd);
+    void changePassword(String userName, String newPwd);
 
     void insert(String code,String username,String name,String salt,String password,String email);
 

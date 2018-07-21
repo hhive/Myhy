@@ -8,8 +8,8 @@ package com.dmsoft.hyacinth.server.entity;
 
 import com.dmsoft.bamboo.common.persistence.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  *  Created by Peter on 2016/7/11.
@@ -20,6 +20,10 @@ public class Role extends BaseEntity {
 
     private String code;
     private String description;
+
+    @ManyToMany(fetch= FetchType.EAGER)
+    @JoinTable(name="rt_role_permission",joinColumns={@JoinColumn(name="role_id")},inverseJoinColumns={@JoinColumn(name="permission_id")})
+    private List<Permission> permissions;
 
     public String getCode() {
         return code;
@@ -36,4 +40,13 @@ public class Role extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public List<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Permission> permissions) {
+        this.permissions = permissions;
+    }
+
 }
