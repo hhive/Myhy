@@ -54,9 +54,9 @@ public interface UserService {
      */
     void changePassword(String userName, String newPwd);
 
-    void insert(String code,String username,String name,String salt,String password,String email);
+    void insert(String code,String username,String name,String password,String email);
 
-    void update(long id,String code,String username,String name,String salt,String password,String email);
+    void update(long id,String code,String username,String name,String password,String email);
 
     void deleteOne(long id);
 
@@ -68,6 +68,6 @@ public interface UserService {
 
     String getUserEamil(String loginName);
 
-
+    User findByloginName(String loginname);
 
 }

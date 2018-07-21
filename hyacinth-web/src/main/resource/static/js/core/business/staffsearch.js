@@ -88,7 +88,7 @@ var staffs = function () {
               "columnDefs": [
                     {
                         "render": function ( data, type, row ) {
-                            return "<input type='checkbox' name='onDutyToId'  value='" + data+ "'>";
+                            return "<input type='checkbox' name='onDutyToId' class='onDutyToId' value='" + data+ "'>";
                         },
                         "targets": 0 //指定渲染列：第一列(渲染第一列为单选框，data自动匹配为  {"data":"id"}中数据）
                     },
@@ -188,7 +188,7 @@ $(function(){
     $("#send").click(function(){
             var valList = [];
             var i=0;
-            $.each($(":checkbox:checked"),function(){
+            $.each($(".onDutyToId:checkbox:checked"),function(){
                 valList[i] = $(this).val();
                 i++;
             });
@@ -205,8 +205,8 @@ $(function(){
                 success: function () {
                     alert("发送成功");
                 },
-                error:function () {
-                    alert("发送失败");
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("错误信息:请检查邮箱配置或选取员工"); //获取的信息即是异常中的Message
                 }
             })
         }
@@ -217,7 +217,7 @@ $(function(){
     $("#pack").click(function(){
             var valList = [];
             var i=0;
-            $.each($(":checkbox:checked"),function(){
+            $.each($(".onDutyToId:checkbox:checked"),function(){
                 valList[i] = $(this).val();
                 i++;
             });
@@ -234,12 +234,23 @@ $(function(){
                     success: function () {
                         alert("打包成功");
                     },
-                    error:function () {
-                        alert("打包失败");
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("错误信息:请选择员工"); //获取的信息即是异常中的Message
                     }
+                    // error: function (request, status, error) {
+                    //     alert(request.responseText);
+                    // }
                 })
             }
         }
     )
 });
-
+// function all() {
+//
+//         var xz = $(this).prop("checked");//判断全选按钮的选中状态
+//         var ck = $(".onDutyToId").prop("checked",xz);  //让class名为qx的选项的选中状态和全选按钮的选中状态一致。
+//
+// }
+$("#checkAll").click(function(){ var xz = $(this).prop("checked");//判断全选按钮的选中状态
+    var ck = $(".onDutyToId").prop("checked",xz);  //让class名为qx的选项的选中状态和全选按钮的选中状态一致。
+ })

@@ -83,6 +83,7 @@ public class ImportstaffController {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out =response.getWriter();
         if (!isCsv(multfile.getOriginalFilename())) {
+
             out.print("<script language=\"javascript\">alert('不是csv格式的文件');window.location.href='/staff/list'</script>");
             return "views/staff/staffsearch";
             //throw new RuntimeException(multfile.getOriginalFilename() + "不是csv格式的文件");

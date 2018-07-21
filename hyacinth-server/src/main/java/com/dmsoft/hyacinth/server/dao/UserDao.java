@@ -58,13 +58,13 @@ public interface UserDao extends PagingAndSortingRepository<User, Long>, JpaSpec
 
     @Modifying
     @Transactional
-    @Query(value = "insert into t_user (code,loginName,name,salt,password,email) values(?1,?2,?3,?4,?5,?6)",nativeQuery = true)
-    void insert(String code,String username,String name,String salt,String password,String email);
+    @Query(value = "insert into t_user (code,loginName,name,password,email) values(?1,?2,?3,?4,?5)",nativeQuery = true)
+    void insert(String code,String username,String name,String password,String email);
 
     @Modifying
     @Transactional
-    @Query("update User user set user.code=?2,user.loginName=?3,user.name=?4,user.salt=?5,user.password = ?6,user.email=?7 where user.id = ?1")
-    void update(long id,String code,String username,String name,String salt,String password,String email);
+    @Query("update User user set user.code=?2,user.loginName=?3,user.name=?4,user.password = ?5,user.email=?6 where user.id = ?1")
+    void update(long id,String code,String username,String name,String password,String email);
 
 
     @Modifying

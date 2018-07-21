@@ -73,8 +73,6 @@ var staffs = function () {
                     {"data": "code"},
                     {"data": "loginName"},
                     {"data": "name"},
-                    {"data":"salt"},
-                    {"data": "password"},
                     {"data": "email"},
                 ],
                 "columnDefs": [
@@ -148,7 +146,6 @@ $(function () {
                     $('#code').val(data.code);
                     $('#loginName').val(data.loginName);
                     $('#name').val( data.name);
-                    $('#salt').val(data.salt);
                     $('#password').val(data.password);
                     $('#email').val(data.email);
 
@@ -160,7 +157,7 @@ $(function () {
 
             var doc=document;
             var Back=doc.getElementById('black'),
-                DialogBox=doc.getElementById('dialogBox'),
+                DialogBox=doc.getElementById('change_dialogBox'),
                 DialogClose=DialogBox.getElementsByClassName('dialog_close')[0];
             //显示遮罩层
             Back.style.display='block';
@@ -188,13 +185,12 @@ function modify(){
     var code = $("#code").val();
     var loginName = $("#loginName").val();
     var name = $("#name").val();
-    var salt = $("#salt").val();
     var password = $("#password").val();
     var email = $("#email").val();
     $.ajax({
         type : "get",
         url : "/user/updateUser",
-        data :{"id": id,"code": code,"loginName":loginName,"name":name,"salt":salt,"password":password,"email":email},
+        data :{"id": id,"code": code,"loginName":loginName,"name":name,"password":password,"email":email},
         async: false,
         success : function (data) {
             alert("修改成功");
@@ -218,8 +214,10 @@ $(function () {
                 url : "/user/deleteOne",
                 type : "post",
                 data : {"id":val},
-                success : function () {
+                success : function (data) {
+                    if(data=="success")
                     alert ("删除成功");
+                    else  alert ("删除失败，无法删除自己");
                     window.parent.location.reload();
                 },
                 error : function () {
@@ -269,12 +267,13 @@ function insertUser() {
             "code" : code,
             "loginName" : loginName,
             "name" : name,
-            "salt" : salt,
             "password" : password,
             "email" : email,
         },
         success : function () {
           alert ("创建新用户成功");
+            window.parent.location.reload();
+            parent.layer.closeAll('dialogBox');
         },
         error : function () {
             alert ("创建新用户失败");

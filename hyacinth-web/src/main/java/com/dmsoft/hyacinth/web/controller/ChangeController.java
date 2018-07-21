@@ -3,6 +3,7 @@ package com.dmsoft.hyacinth.web.controller;
 
 import com.dmsoft.hyacinth.server.dto.SalaryDto;
 import com.dmsoft.hyacinth.server.dto.StaffDto;
+import com.dmsoft.hyacinth.server.service.EmailService;
 import com.dmsoft.hyacinth.server.service.SalaryService;
 import com.dmsoft.hyacinth.server.service.StaffService;
 import com.dmsoft.hyacinth.web.controller.ExportImage;
@@ -12,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +27,8 @@ import java.util.List;
 @Controller
 public class ChangeController {
     String isExport = null;
-
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private StaffService staffService;
     @Autowired
@@ -32,7 +36,7 @@ public class ChangeController {
     @Autowired
     HistoryController historyController;
     @RequestMapping(value = "/export")
-    public String export(@RequestParam("id_checked")List<String> idList,HttpServletResponse response)throws IOException{
+    public String export(@RequestParam("id_checked")List<String> idList, HttpServletResponse response,HttpServletRequest request)throws IOException{
         //List<SalaryDto> salaryDtoList=salaryService.findAll();
            // SalaryDto sa = salaryService.findbycode("DM12345");
         response.setContentType("text/html;charset=UTF-8");
@@ -50,21 +54,25 @@ public class ChangeController {
                 packageController.zipFilesAndEncrypt("d:/"+sa.getName()+".bmp","d:/"+sa.getName()+".zip",sa.getCode());
                 File file = new File("d:/"+sa.getName()+".bmp");
                 file.delete();
-            historyController.packagehistory(code);}});
+            historyController.packagehistory(code,request);}});
         return "index";
     }
 
     @RequestMapping(value = "/email",method = RequestMethod.POST)
-    public String email(@RequestParam("id_checked")List<String> idList){
+    public String email(@RequestParam("id_checked")List<String> idList,HttpServletRequest request){
         //SalaryDto sa = salaryService.findbycode("DM12345");
        // List<SalaryDto> salaryDtoList=salaryService.findAll();
         idList.forEach(id->{
             String code=staffService.findById(Long.parseLong(id)).getCode();
+            try {
             SalaryDto sa = salaryService.findbycode(code);
-           exportImage(sa);
-        SendemailController s=new SendemailController();
-        s.sendSalaryWithAttachment(sa.getName());
-        historyController.sendhistory(code);});
+            StaffDto st = staffService.findcode(code);
+             SendemailController s=new SendemailController();
+            s.sendSalaryWithAttachment(sa.getName(),st.getEmail(),emailService.findid(Long.valueOf(1)));
+        }catch (NullPointerException e){
+            throw new NullPointerException("未找到工号为"+code+"的工资文件");
+        }
+        historyController.sendhistory(code,request);});
         return "index";
     }
 
