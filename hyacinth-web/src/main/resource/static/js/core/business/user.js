@@ -192,9 +192,8 @@ function modify(){
         url : "/user/updateUser",
         data :{"id": id,"code": code,"loginName":loginName,"name":name,"password":password,"email":email},
         async: false,
-        success : function (data) {
+        success : function () {
             alert("修改成功");
-            window.parent.location.reload();
             parent.layer.closeAll('dialogBox');
         },
         error : function () {
@@ -202,6 +201,35 @@ function modify(){
         }
     });
 }
+
+function insertUser() {
+    // alert("good");
+    var code = $("#new_code").val();
+    var loginName = $("#new_loginName").val();
+    var name = $("#new_name").val();
+    var password = $("#new_password").val();
+    var email = $("#new_email").val();
+    $.ajax({
+        url : "/user/insertUser",
+        type :"get",
+        data : {
+            "code" : code,
+            "loginName" : loginName,
+            "name" : name,
+            "password" : password,
+            "email" : email,
+        },
+        async: false,
+        success : function () {
+            alert ("创建新用户成功");
+            parent.layer.closeAll('dialogBox');
+        },
+        error : function () {
+            alert ("创建新用户失败");
+        }
+    });
+}
+
 
 $(function () {
     $("#delete").click(function(){
@@ -219,6 +247,7 @@ $(function () {
                     alert ("删除成功");
                     else  alert ("删除失败，无法删除自己");
                     window.parent.location.reload();
+                    parent.layer.closeAll('dialogBox');
                 },
                 error : function () {
                     alert ("删除失败");
@@ -252,32 +281,4 @@ $(function(){
         }
     })
 });
-
-function insertUser() {
-    var code = $("#new_code").val();
-    var loginName = $("#new_loginName").val();
-    var name = $("#new_name").val();
-    var salt = $("#new_salt").val();
-    var password = $("#new_password").val();
-    var email = $("#new_email").val();
-    $.ajax({
-        url : "/user/insertUser",
-        type :"post",
-        data : {
-            "code" : code,
-            "loginName" : loginName,
-            "name" : name,
-            "password" : password,
-            "email" : email,
-        },
-        success : function () {
-          alert ("创建新用户成功");
-            window.parent.location.reload();
-            parent.layer.closeAll('dialogBox');
-        },
-        error : function () {
-            alert ("创建新用户失败");
-        }
-    });
-}
 

@@ -3,6 +3,7 @@ package com.dmsoft.hyacinth.web.controller;
 import com.dmsoft.hyacinth.server.dao.UserDao;
 import com.dmsoft.hyacinth.server.dto.UserDto;
 import com.dmsoft.hyacinth.server.service.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,39 +50,40 @@ public class UserController {
 
 
     @ResponseBody//如果需要返回JSON，XML或自定义mediaType内容到页面，则需要在对应的方法上加上@ResponseBody注解。
-    @RequestMapping(value = "/insertUser", method = RequestMethod.POST)
-    public void insertUser(@RequestParam(name="code") String code,
+    @RequestMapping(value = "/insertUser", method = RequestMethod.GET)
+    public String insertUser(@RequestParam(name="code") String code,
                            @RequestParam(name="loginName") String loginName,
                            @RequestParam(name="name") String name,
-                           @RequestParam(name="salt") String salt,
                            @RequestParam(name="password") String password,
                            @RequestParam(name="email") String email) {
-        userService.insert(code,loginName,name,salt,password,email);
+        userService.insert(code,loginName,name,password,email);
+        return "user/userView";
     }
 
     @ResponseBody
     @RequestMapping(value = "/updateUser" ,method = RequestMethod.GET)
-    public Map<String,String> updateUser(@RequestParam(name="id") long id,
+    public String updateUser(@RequestParam(name="id") long id,
                                          @RequestParam(name="code" ) String code,
                                          @RequestParam(name="loginName") String loginName,
                                          @RequestParam(name="name") String name,
-                                         @RequestParam(name="salt") String salt,
                                          @RequestParam(name="password") String password,
                                          @RequestParam(name="email") String email){
-        System.out.println("1111111111111112");
-        Map<String,String> map=new HashMap<>();
-        userService.update(id,code,loginName,name,salt,password,email);
-        map.put("success","true");
-        return map;
+
+
+       userService.update(id,code,loginName,name,password,email);
+        return "user/userView";
     }
 
     @ResponseBody
     @RequestMapping(value = "/deleteOne")
-    public Map<String,String> deleteOne(@RequestParam(name="id") long id){
-        Map<String,String> map=new HashMap<>();
-        userService.deleteOne(id);
-        map.put("success","true");
-        return map;
+    public String deleteOne(@RequestParam(name="id") long id){
+        UserDto user1 = userService.findUserById(id);
+        User user2 = (User) SecurityUtils.getSubject().getPrincipal();
+        if(user1.getLoginName().equals(user2.getLoginName())){
+            return null;
+        }else{
+            userService.deleteOne(id);
+             return "success";}
     }
 
     @RequestMapping(value = "/code")

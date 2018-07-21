@@ -12,12 +12,12 @@ function login(){
         async: false,
         success : function (data) {
     if(data.loginName != null)
-            window.location.href="http://localhost:8888/success";
+            window.location.href="/home";
     else  alert("用户名或密码错误");
 
         },
         error : function () {
-            alert("用户名或密码错误");
+
         }
     });
 }
